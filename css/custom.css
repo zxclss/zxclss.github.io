@@ -16,7 +16,7 @@ a#site-name {
 
 
 /* 全局背景透明渐变 */
-/* #recent-posts>.recent-post-item,.layout_page>div:first-child:not(.recent-posts),.layout_post>#page,.layout_post>#post,.read-mode .layout_post>#post {
+#recent-posts>.recent-post-item,.layout_page>div:first-child:not(.recent-posts),.layout_post>#page,.layout_post>#post,.read-mode .layout_post>#post {
     background: var(--light_bg_color)
 }
 
@@ -26,10 +26,6 @@ a#site-name {
 
 #web_bg {
     background: linear-gradient(90deg,rgba(247,149,51,.1),rgba(243,112,85,.1) 15%,rgba(239,78,123,.1) 30%,rgba(161,102,171,.1) 44%,rgba(80,115,184,.1) 58%,rgba(16,152,173,.1) 72%,rgba(7,179,155,.1) 86%,rgba(109,186,130,.1))
-} */
-
-#web_bg{
-    opacity:0.2;
 }
 
 /* 页脚透明渐变 */
