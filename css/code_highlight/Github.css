@@ -11,9 +11,9 @@
 :root {
   --hl-color: #24292e;
   --hl-bg: rgb(246 248 250);
-  --hltools-bg: #ebeff1;
-  --hltools-color: #8888bf;
-  --hlnumber-bg: rgb(246 248 250);
+  --hltools-bg: #49b1f5;
+  --hltools-color: #ffffff;
+  --hlnumber-bg: rgb(235 239 241);
   --hlnumber-color: #221a0f7a;
 }
   
