@@ -1,0 +1,735 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>《算法竞赛进阶指南》0x08 总结与练习 | Colopen's blog</title><meta name="keywords" content="算法竞赛进阶指南"><meta name="author" content="Colopen 彩色铅笔"><meta name="copyright" content="Colopen 彩色铅笔"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="章节总结 任何问题都有其涉及的范围，称之为问题的“状态空间”，求解一个问题，就是在这个状态空间里的遍历与映射 递推与递归是遍历状态空间的两种基本形式 接下来的章节探讨的各种算法，则是对于 “遍历顺序” “遍历过程中的决策方法” “状态空间中各状态之间的映射方式” 给出的指导  枚举与模拟是按照问题的直接表述形式对状态空间进行朴素的遍历 搜索则是带有一定的选择性、决策性的遍历 贪心是在每步决策时采取">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《算法竞赛进阶指南》0x08 总结与练习">
+<meta property="og:url" content="http://www.colopen-blog.com/Algorithm/lydguid/z0x08_%E6%80%BB%E7%BB%93%E4%B8%8E%E7%BB%83%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Colopen&#39;s blog">
+<meta property="og:description" content="章节总结 任何问题都有其涉及的范围，称之为问题的“状态空间”，求解一个问题，就是在这个状态空间里的遍历与映射 递推与递归是遍历状态空间的两种基本形式 接下来的章节探讨的各种算法，则是对于 “遍历顺序” “遍历过程中的决策方法” “状态空间中各状态之间的映射方式” 给出的指导  枚举与模拟是按照问题的直接表述形式对状态空间进行朴素的遍历 搜索则是带有一定的选择性、决策性的遍历 贪心是在每步决策时采取">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.colopen-blog.com/img/top.jpg">
+<meta property="article:published_time" content="2022-01-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-02T03:34:12.317Z">
+<meta property="article:author" content="Colopen 彩色铅笔">
+<meta property="article:tag" content="算法竞赛进阶指南">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.colopen-blog.com/img/top.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.colopen-blog.com/Algorithm/lydguid/z0x08_%E6%80%BB%E7%BB%93%E4%B8%8E%E7%BB%83%E4%B9%A0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Colopen 彩色铅笔","link":"链接: ","source":"来源: Colopen's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '《算法竞赛进阶指南》0x08 总结与练习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-02 11:34:12'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/dist/echarts.min.js"></script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/top.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Colopen's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《算法竞赛进阶指南》0x08 总结与练习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-29T16:00:00.000Z" title="发表于 2022-01-30 00:00:00">2022-01-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-02T03:34:12.317Z" title="更新于 2022-02-02 11:34:12">2022-02-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E8%BF%9B%E9%98%B6%E6%8C%87%E5%8D%97/">算法竞赛进阶指南</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">9.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>35分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="《算法竞赛进阶指南》0x08 总结与练习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="章节总结">章节总结</h1>
+<p>任何问题都有其涉及的范围，称之为问题的“状态空间”，求解一个问题，就是在这个状态空间里的遍历与映射</p>
+<p>递推与递归是遍历状态空间的两种基本形式</p>
+<p>接下来的章节探讨的各种算法，则是对于 “遍历顺序” “遍历过程中的决策方法” “状态空间中各状态之间的映射方式” 给出的指导</p>
+<ol type="1">
+<li><p>枚举与模拟是按照问题的直接表述形式对状态空间进行朴素的遍历</p></li>
+<li><p>搜索则是带有一定的选择性、决策性的遍历</p></li>
+<li><p>贪心是在每步决策时采取局部最优策略的遍历</p></li>
+<li><p>动态规划则是基于全局考量的分阶段、按维度、无重复遍历</p></li>
+<li><p>二分、倍增以及与排序相关的一些算法会对状态空间实施划分、等价、代表、拼接等手段，直接降低遍历时需要面对的时空规模</p></li>
+</ol>
+<p>本章知识点汇总：</p>
+<ol type="1">
+<li>位运算
+<ol type="1">
+<li>补码表示法，理解 C++ 无符号、有符号整数在计算机中的存储方式</li>
+<li>各种按位运算，包括取位、置位、移位等，以及一些常用技巧</li>
+<li>快速幂，64位整数乘法</li>
+<li>二进制状态压缩，使用二进制数对状态进行压缩、提取的方法</li>
+</ol></li>
+<li>枚举、模拟、递推
+<ol type="1">
+<li>能想象问题 “状态空间”，理解各种基本算法其实是对状态空间的遍历与映射</li>
+<li>常见的枚举形式，无法设计有效算法时能够通过美剧的方式直接遍历状态空间</li>
+<li>通过模拟，主要侧重代码实现能力的训练</li>
+<li>递推边界、目标、递推公式的发现与设计</li>
+<li>一维、二维前缀和的递推与应用</li>
+</ol></li>
+<li>递归
+<ol type="1">
+<li>理解递归思想、子问题、递归边界、回溯时还原现场</li>
+<li>递归实现常见规模的状态空间的遍历</li>
+<li>分治思想，对问题进行划分、递归、再合并</li>
+<li>分形，主要练习对子问题的划分、提取、抽象</li>
+<li>递归的机器实现，转化成非递归的通用方式</li>
+</ol></li>
+<li>二分
+<ol type="1">
+<li>整数集合二分法、实数域二分法</li>
+<li>单峰函数的三分法</li>
+<li>二分答案，把求解转化为判定</li>
+</ol></li>
+<li>排序
+<ol type="1">
+<li>各种排序算法</li>
+<li>离散化</li>
+<li>中位数相关问题，包括货仓选址、环形均分纸牌、动态维护中位数等</li>
+<li>求第 k 个数的线性算法</li>
+<li>逆序对相关问题，使用归并排序求逆序对</li>
+</ol></li>
+<li>倍增
+<ol type="1">
+<li>序列上的倍增算法及其应用</li>
+<li>RMQ-ST 算法</li>
+</ol></li>
+<li>贪心
+<ol type="1">
+<li>贪心思想及其证明手段，主要通过较多题目开拓视野、归纳总结</li>
+</ol></li>
+</ol>
+<h1 id="习题">习题</h1>
+<h2 id="飞行员兄弟">飞行员兄弟</h2>
+<h3 id="题目描述">题目描述</h3>
+<p>“飞行员兄弟”这个游戏，需要玩家顺利的打开一个拥有 <span class="math inline">\(16\)</span> 个把手的冰箱。</p>
+<p>已知每个把手可以处于以下两种状态之一：打开或关闭。</p>
+<p>只有当所有把手都打开时，冰箱才会打开。</p>
+<p>把手可以表示为一个 <span class="math inline">\(4×4\)</span> 的矩阵，您可以改变任何一个位置 <span class="math inline">\([i,j]\)</span> 上把手的状态。</p>
+<p>但是，这也会使得第 <span class="math inline">\(i\)</span> 行和第 <span class="math inline">\(j\)</span> 列上的所有把手的状态也随着改变。</p>
+<p>请你求出打开冰箱所需的切换把手的次数最小值是多少。</p>
+<p><strong>输入格式</strong></p>
+<p>输入一共包含四行，每行包含四个把手的初始状态。</p>
+<p>符号 <code>+</code> 表示把手处于闭合状态，而符号 <code>-</code> 表示把手处于打开状态。</p>
+<p>至少一个手柄的初始状态是关闭的。</p>
+<p><strong>输出格式</strong></p>
+<p>第一行输出一个整数 <span class="math inline">\(N\)</span>，表示所需的最小切换把手次数。</p>
+<p>接下来 <span class="math inline">\(N\)</span> 行描述切换顺序，每行输出两个整数，代表被切换状态的把手的行号和列号，数字之间用空格隔开。</p>
+<p>注意：如果存在多种打开冰箱的方式，则按照优先级整体从上到下，同行从左到右打开。</p>
+<p><strong>数据范围</strong></p>
+<p><span class="math inline">\(1≤i,j≤4\)</span></p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">-+--<br>----<br>----<br>-+--<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">6<br>1 1<br>1 3<br>1 4<br>4 1<br>4 3<br>4 4<br></code></pre></td></tr></table></figure>
+<h3 id="解析">解析</h3>
+<p>显然最优解中，每个位置至多操作一次</p>
+<p>因此直接二进制枚举即可</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> op = <span class="hljs-number">0</span>; op &lt; <span class="hljs-number">1</span> &lt;&lt; n * n; op ++ )<br>&#123;<br>    <span class="hljs-built_in">memcpy</span>(a, b, <span class="hljs-keyword">sizeof</span> b);<br>    <span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j ++ )<br>            <span class="hljs-keyword">if</span> (op &gt;&gt; i * n + j &amp; <span class="hljs-number">1</span>)<br>                <span class="hljs-built_in">turn</span>(i, j), cnt ++ ;<br>    <span class="hljs-keyword">if</span> (cnt &gt;= res) <span class="hljs-keyword">continue</span>;<br>    <span class="hljs-keyword">bool</span> ok = <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j ++ )<br>            <span class="hljs-keyword">if</span> (a[i][j] == <span class="hljs-string">&#x27;+&#x27;</span>)<br>                ok = <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">if</span> (ok) res = cnt, state = op;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="占卜diy">占卜DIY</h2>
+<h3 id="题目描述-1">题目描述</h3>
+<p>达达学会了使用扑克 DIY 占卜。</p>
+<p>方法如下：</p>
+<p>一副去掉大小王的扑克共 <span class="math inline">\(52\)</span> 张，打乱后均分为 <span class="math inline">\(13\)</span> 堆，编号 <span class="math inline">\(1∼13\)</span>，每堆 <span class="math inline">\(4\)</span> 张，其中第 <span class="math inline">\(13\)</span> 堆称作“生命牌”，也就是说你有 <span class="math inline">\(4\)</span> 条命。</p>
+<p>这里边，<span class="math inline">\(4\)</span> 张 <span class="math inline">\(K\)</span> 被称作死神。</p>
+<p>初始状态下，所有的牌背面朝上扣下。</p>
+<p>流程如下：</p>
+<ol type="1">
+<li><p>抽取生命牌中的最上面一张(第一张)。</p></li>
+<li><p>把这张牌翻开，正面朝上，放到牌上的数字所对应编号的堆的最上边。(例如抽到 <span class="math inline">\(2\)</span>，正面朝上放到第 <span class="math inline">\(2\)</span> 堆牌最上面，又比如抽到 <span class="math inline">\(J\)</span>，放到第 <span class="math inline">\(11\)</span> 堆牌最上边，注意是正面朝上放)</p></li>
+<li><p>从刚放了牌的那一堆最底下(最后一张)抽取一张牌，重复第 <span class="math inline">\(2\)</span> 步。（例如你上次抽了 <span class="math inline">\(2\)</span>，放到了第二堆顶部，现在抽第二堆最后一张发现是 <span class="math inline">\(8\)</span>，又放到第 <span class="math inline">\(8\)</span> 堆顶部.........）</p></li>
+<li><p>在抽牌过程中如果抽到 <span class="math inline">\(K\)</span>，则称死了一条命，就扔掉 <span class="math inline">\(K\)</span> 再从第 <span class="math inline">\(1\)</span> 步开始。</p></li>
+<li><p>当发现四条命都死了以后，统计现在每堆牌上边正面朝上的牌的数目，只要同一数字的牌出现 <span class="math inline">\(4\)</span> 张正面朝上的牌(比如 <span class="math inline">\(4\)</span> 个 <span class="math inline">\(A\)</span>)，则称“开了一对”，当然 <span class="math inline">\(4\)</span> 个 <span class="math inline">\(K\)</span> 是不算的。</p></li>
+<li><p>统计一共开了多少对，开了 <span class="math inline">\(0\)</span> 对称作”极凶”，<span class="math inline">\(1∼2\)</span> 对为“大凶”，<span class="math inline">\(3\)</span> 对为“凶”，<span class="math inline">\(4∼5\)</span> 对为“小凶”，<span class="math inline">\(6\)</span> 对为“中庸”，<span class="math inline">\(7∼8\)</span> 对“小吉”，<span class="math inline">\(9\)</span> 对为“吉”，<span class="math inline">\(10∼11\)</span> 为“大吉”，<span class="math inline">\(12\)</span> 为“满堂开花，极吉”。</p></li>
+</ol>
+<p><strong>输入格式</strong></p>
+<p>一共输入 <span class="math inline">\(13\)</span> 行数据，每行四个数字或字母，表示每堆牌的具体牌型(不区分花色只区分数字)，每堆输入的顺序为从上到下。</p>
+<p>为了便于读入，用 <span class="math inline">\(0\)</span> 代表 <span class="math inline">\(10\)</span>。</p>
+<p>同行数字用空格隔开。</p>
+<p><strong>输出格式</strong></p>
+<p>输出一个整数，代表统计得到的开出的总对数。</p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">8 5 A A<br>K 5 3 2<br>9 6 0 6<br>3 4 3 4<br>3 4 4 5<br>5 6 7 6<br>8 7 7 7<br>9 9 8 8<br>9 0 0 0<br>K J J J<br>Q A Q K<br>J Q 2 2<br>A K Q 2<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">9<br></code></pre></td></tr></table></figure>
+<h3 id="解析-1">解析</h3>
+<p>模拟题，我是用双端队列来模拟的</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> t)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (!t) <span class="hljs-keyword">return</span>;<br>    cnt[t] ++ ;<br>    <span class="hljs-keyword">int</span> ne = cards[t].<span class="hljs-built_in">back</span>(); cards[t].<span class="hljs-built_in">pop_back</span>();<br>    <span class="hljs-built_in">dfs</span>(ne);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="分形">分形</h2>
+<h3 id="题目描述-2">题目描述</h3>
+<p>分形，具有以非整数维形式充填空间的形态特征。</p>
+<p>通常被定义为“一个粗糙或零碎的几何形状，可以分成数个部分，且每一部分都（至少近似地）是整体缩小后的形状”，即具有自相似的性质。</p>
+<p>现在，定义“盒子分形”如下：</p>
+<p>一级盒子分形：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">X<br></code></pre></td></tr></table></figure>
+<p>二级盒子分形：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">X X<br> X<br>X X<br></code></pre></td></tr></table></figure>
+<p>如果用 <span class="math inline">\(B(n−1)\)</span> 代表第 <span class="math inline">\(n−1\)</span> 级盒子分形，那么第 <span class="math inline">\(n\)</span> 级盒子分形即为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">B(n - 1)        B(n - 1)<br><br>        B(n - 1)<br><br>B(n - 1)        B(n - 1)<br></code></pre></td></tr></table></figure>
+<p>你的任务是绘制一个 <span class="math inline">\(n\)</span> 级的盒子分形。</p>
+<p><strong>输入格式</strong></p>
+<p>输入包含几个测试用例。</p>
+<p>输入的每一行包含一个不大于 <span class="math inline">\(7\)</span> 的正整数 <span class="math inline">\(n\)</span>，代表要输出的盒子分形的等级。</p>
+<p>输入的最后一行为 <span class="math inline">\(−1\)</span>，代表输入结束。</p>
+<p><strong>输出格式</strong></p>
+<p>对于每个测试用例，使用 <code>X</code> 符号输出对应等级的盒子分形。</p>
+<p>请注意 <code>X</code> 是一个大写字母。</p>
+<p>每个测试用例后输出一个独立一行的短划线。</p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">1<br>2<br>3<br>4<br>-1<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">X<br>-<br>X X<br> X<br>X X<br>-<br>X X   X X<br> X     X<br>X X   X X<br>   X X<br>    X<br>   X X<br>X X   X X<br> X     X<br>X X   X X<br>-<br>X X   X X         X X   X X<br> X     X           X     X<br>X X   X X         X X   X X<br>   X X               X X<br>    X                 X<br>   X X               X X<br>X X   X X         X X   X X<br> X     X           X     X<br>X X   X X         X X   X X<br>         X X   X X<br>          X     X<br>         X X   X X<br>            X X<br>             X<br>            X X<br>         X X   X X<br>          X     X<br>         X X   X X<br>X X   X X         X X   X X<br> X     X           X     X<br>X X   X X         X X   X X<br>   X X               X X<br>    X                 X<br>   X X               X X<br>X X   X X         X X   X X<br> X     X           X     X<br>X X   X X         X X   X X<br>-<br></code></pre></td></tr></table></figure>
+<h3 id="解析-2">解析</h3>
+<p>分形图</p>
+<p>假设当前绘制第 <span class="math inline">\(n\)</span> 级分形图，则边长为 <span class="math inline">\(3^{n-1}\)</span>，设当前分形图左上角坐标为 <span class="math inline">\((x,y)\)</span></p>
+<p>则 <span class="math inline">\(n-1\)</span> 级分形图的五个坐标应为：<span class="math inline">\(\begin{cases} (x,y)\\ (x+2 \cdot 3^{n-2}, y)\\ (x+3^{n-2},y+3^{n-2}) \\ (x,y+2 \cdot 3^{n-2})\\ (x+2 \cdot 3^{n-2},y+2 \cdot 3^{n-2}) \end{cases}\)</span></p>
+<p>然后递归处理即可，属于入门分形图难度</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> k)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (k == <span class="hljs-number">1</span>)<br>    &#123;<br>        g[x][y] = <span class="hljs-string">&#x27;X&#x27;</span>;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    k /= <span class="hljs-number">3</span>;<br>    <span class="hljs-built_in">dfs</span>(x, y, k);<br>    <span class="hljs-built_in">dfs</span>(x, y + <span class="hljs-number">2</span> * k, k);<br>    <span class="hljs-built_in">dfs</span>(x + k, y + k, k);<br>    <span class="hljs-built_in">dfs</span>(x + <span class="hljs-number">2</span> * k, y, k);<br>    <span class="hljs-built_in">dfs</span>(x + <span class="hljs-number">2</span> * k, y + <span class="hljs-number">2</span> * k, k);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="袭击">袭击</h2>
+<h3 id="题目描述-3">题目描述</h3>
+<p>在与联盟的战斗中屡战屡败后，帝国撤退到了最后一个据点。</p>
+<p>依靠其强大的防御系统，帝国击退了联盟的六波猛烈进攻。</p>
+<p>经过几天的苦思冥想，联盟将军亚瑟终于注意到帝国防御系统唯一的弱点就是能源供应。</p>
+<p>该系统由 <span class="math inline">\(N\)</span> 个核电站供应能源，其中任何一个被摧毁都会使防御系统失效。</p>
+<p>将军派出了 <span class="math inline">\(N\)</span> 个特工进入据点之中，打算对能源站展开一次突袭。</p>
+<p>不幸的是，由于受到了帝国空军的袭击，他们未能降落在预期位置。</p>
+<p>作为一名经验丰富的将军，亚瑟很快意识到他需要重新安排突袭计划。</p>
+<p>他现在最想知道的事情就是哪个特工距离其中任意一个发电站的距离最短。</p>
+<p>你能帮他算出来这最短的距离是多少吗？</p>
+<p><strong>输入格式</strong></p>
+<p>输入中包含多组测试用例。</p>
+<p>第一行输入整数 <span class="math inline">\(T\)</span>，代表测试用例的数量。</p>
+<p>对于每个测试用例，第一行输入整数 <span class="math inline">\(N\)</span>。</p>
+<p>接下来 <span class="math inline">\(N\)</span> 行，每行输入两个整数 <span class="math inline">\(X\)</span> 和 <span class="math inline">\(Y\)</span>，代表每个核电站的位置的 <span class="math inline">\(X\)</span>，<span class="math inline">\(Y\)</span> 坐标。</p>
+<p>在接下来 <span class="math inline">\(N\)</span> 行，每行输入两个整数 <span class="math inline">\(X\)</span> 和 <span class="math inline">\(Y\)</span>，代表每名特工的位置的 <span class="math inline">\(X\)</span>，<span class="math inline">\(Y\)</span> 坐标。</p>
+<p><strong>输出格式</strong></p>
+<p>每个测试用例，输出一个最短距离值，结果保留三位小数。</p>
+<p>每个输出结果占一行。</p>
+<p><strong>数据范围</strong></p>
+<p><span class="math inline">\(1≤N≤10^5\)</span>, <span class="math inline">\(0≤X,Y≤10^9\)</span></p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">2<br>4<br>0 0<br>0 1<br>1 0<br>1 1<br>2 2<br>2 3<br>3 2<br>3 3<br>4<br>0 0<br>0 0<br>0 0<br>0 0<br>0 0<br>0 0<br>0 0<br>0 0<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">1.414<br>0.000<br></code></pre></td></tr></table></figure>
+<h3 id="解析-3">解析</h3>
+<p><strong>平面最近点对</strong>，这是一个 K-D Tree 的裸题，也称为“邻域查询”问题，我们采用分治思想来求解</p>
+<p>本质和 K-D Tree 解法没有区别，都是根据坐标对点进行分类，然后分治</p>
+<p>本题真正难点在于邻域查询后的合并，理解这个合并可以为日后学 K-D Tree 打好基础，让我们开始</p>
+<p>首先，我们先将所有点按照横坐标递增排序，然后采用分治的思路</p>
+<p>每次将一个区间 <span class="math inline">\([l, r]\)</span> 分成 <span class="math inline">\([l, mid]\)</span> 和 <span class="math inline">\([mid + 1, r]\)</span> 两个区间，其中 <span class="math inline">\(mid = \lfloor\dfrac{l + r}{2}\rfloor\)</span></p>
+<p>那么多有的点对可以简单分为三类：</p>
+<ol type="1">
+<li>两个点都在区间 <span class="math inline">\([l, mid]\)</span> 里</li>
+<li>两个点都在区间 <span class="math inline">\([mid + 1, r]\)</span> 里</li>
+<li>一个点在区间 <span class="math inline">\([l, mid]\)</span> 里，一个点在区间 <span class="math inline">\([mid + 1, r]\)</span> 里</li>
+</ol>
+<p>对于第一类点对和第二类的点对，我们递归下去处理即可，现讨论如何统计第三类点对</p>
+<p>先递归处理左右两个子区间，统计好第一、第二类点对的平面最近距离，递归处理好后设该距离为 <span class="math inline">\(\delta\)</span></p>
+<p>于是，第三类点对可以分为：点对距离大于 <span class="math inline">\(\delta\)</span> 和点对距离小于 <span class="math inline">\(\delta\)</span> 的两类</p>
+<p>显然距离大于 <span class="math inline">\(\delta\)</span> 的点对对答案的贡献为 <span class="math inline">\(0\)</span>，我们只需去关心距离小于 <span class="math inline">\(\delta\)</span> 的点对</p>
+<p>而距离小于 <span class="math inline">\(\delta\)</span> 的点对的任意点一定位于区间 <span class="math inline">\([x_{mid} - \delta, x_{mid} + \delta]\)</span>，否则点对距离必定大于 <span class="math inline">\(\delta\)</span></p>
+<figure>
+<img src="https://cdn.acwing.com/media/article/image/2022/01/31/55909_54f0f1b282-PNG图像.png" alt="PNG图像.png" /><figcaption>PNG图像.png</figcaption>
+</figure>
+<p>我们枚举一侧的点，然后找出枚举的点 <span class="math inline">\(x\)</span> 配对的最近点对 <span class="math inline">\(y\)</span>，<span class="math inline">\(y\)</span> 一定位于以 <span class="math inline">\(x\)</span> 为圆心半径为 <span class="math inline">\(\delta\)</span> 的圆内，不妨把圆放宽成矩形</p>
+<p><strong>假设：任意左侧点的矩形范围内，至多只有 6 个点</strong></p>
+<p><strong>证明：</strong> 我们将矩形长二等分，宽三等分，获得的 6 个子矩阵长为 <span class="math inline">\(\dfrac{1}{2}\delta\)</span>，宽为 <span class="math inline">\(\dfrac{2}{3}\delta\)</span>，如下图所示：</p>
+<figure>
+<img src="https://cdn.acwing.com/media/article/image/2022/01/31/55909_5d525d9c82-PNG图像-2.png" alt="PNG图像 2.png" /><figcaption>PNG图像 2.png</figcaption>
+</figure>
+<p>反证法：假设存在 7 个点，根据抽屉原理，则必然存在一个子矩形内有两个点</p>
+<p>根据子矩阵的长宽，易推得子矩阵内最远的两个点距离为子矩阵的对角线，即 <span class="math inline">\(\dfrac{5}{6}\delta\)</span></p>
+<p>而 <span class="math inline">\(\delta\)</span> 定义是邻域内部的最近点对最小距离，如果存在第 7 个点，必然使右侧邻域内存在距离小于 <span class="math inline">\(\delta\)</span> 的点对，与先前的假设矛盾</p>
+<p>故得证，对于左侧每个点，至多枚举 6 个右侧的点，便可以遍历出第三类点中的最近点对</p>
+<p>设当前点坐标为 <span class="math inline">\((x,y)\)</span>，则要枚举的 6 个点的坐标范围为：<span class="math inline">\(x_i \in [x, x+\delta], y_i\in[y-\delta,y+\delta]\)</span></p>
+<p>考虑如何枚举这些点对，显然暴力枚举的时间复杂度为 <span class="math inline">\(O(n^2)\)</span></p>
+<p>如果按照横坐标来枚举，由于横坐标的跨度为 <span class="math inline">\(2\delta\)</span>，每次会枚举 <span class="math inline">\([x,x+\delta]\)</span> 范围内的点，因此点会很密集</p>
+<p>很容易导致一层内枚举的时间复杂度变成 <span class="math inline">\(O(n^2)\)</span>，而纵坐标范围是 <span class="math inline">\([-\infty,+\infty]\)</span>，考虑按他来枚举</p>
+<p>因此不妨对所有在每次递归回溯之后，将所有点按纵坐标排好序，当然如果直接排序，时间复杂度为 <span class="math inline">\(O(n\log^2n)\)</span></p>
+<p>用到之前在 <strong>“天才ACM”</strong> 里的技巧，观察发现回溯之后，左右两个子区间都已经排好序了</p>
+<p>因此可以直接在原地做一遍 <strong>二路归并</strong>，这样最终排序的总时间复杂度就只有 <span class="math inline">\(O(n\log n)\)</span> 了</p>
+<p>最终的总时间复杂度也为 <span class="math inline">\(O(n \log n)\)</span></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Point</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-keyword">double</span> x, y;<br>    <span class="hljs-keyword">int</span> type;<br>    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt; (<span class="hljs-keyword">const</span> Point&amp; t) <span class="hljs-keyword">const</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> x &lt; t.x;<br>    &#125;<br>    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span> == (<span class="hljs-keyword">const</span> Point&amp; t) <span class="hljs-keyword">const</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> x == t.x &amp;&amp; y == t.y &amp;&amp; type == t.type;<br>    &#125;<br>&#125;;<br><br>Point points[N], temp[N];<br><br><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">get_dist</span><span class="hljs-params">(Point a, Point b)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (a.type == b.type) <span class="hljs-keyword">return</span> INF;<br>    <span class="hljs-keyword">double</span> dx = a.x - b.x, dy = a.y - b.y;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sqrt</span>(dx * dx + dy * dy);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (l &gt;= r) <span class="hljs-keyword">return</span> INF;<br>    <span class="hljs-keyword">int</span> mid = l + r &gt;&gt; <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">double</span> mid_x = points[mid].x;<br>    <span class="hljs-keyword">double</span> res = <span class="hljs-built_in">min</span>(<span class="hljs-built_in">dfs</span>(l, mid), <span class="hljs-built_in">dfs</span>(mid + <span class="hljs-number">1</span>, r));<br>    <br>    <span class="hljs-comment">// 按照纵坐标进行归并</span><br>    &#123;<br>        <span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>, i = l, j = mid + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span> (i &lt;= mid &amp;&amp; j &lt;= r)<br>            <span class="hljs-keyword">if</span> (points[i].y &lt; points[j].y) temp[k ++ ] = points[i ++ ];<br>            <span class="hljs-keyword">else</span> temp[k ++ ] = points[j ++ ];<br>        <span class="hljs-keyword">while</span> (i &lt;= mid) temp[k ++ ] = points[i ++ ];<br>        <span class="hljs-keyword">while</span> (j &lt;= r) temp[k ++ ] = points[j ++ ];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i ++ ) points[i + l] = temp[i];<br>    &#125;<br>    <br>    <span class="hljs-comment">// 取出 [x_mid - delta, x_mid + delta] 区间内的点</span><br>    <span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = l; i &lt;= r; i ++ )<br>        <span class="hljs-keyword">if</span> (mid_x - res &lt;= points[i].x &amp;&amp; points[i].x &lt;= mid_x + res)<br>            temp[k ++ ] = points[i];<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i ++ )<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i - <span class="hljs-number">1</span>; ~j &amp;&amp; temp[i].y - temp[j].y &lt;= res; j -- )<br>            res = <span class="hljs-built_in">min</span>(res, <span class="hljs-built_in">get_dist</span>(temp[i], temp[j]));<br>            <br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>    &#123;<br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%lf%lf&quot;</span>, &amp;points[i].x, &amp;points[i].y);<br>        points[i].type = <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = n; i &lt; <span class="hljs-number">2</span> * n; i ++ )<br>    &#123;<br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%lf%lf&quot;</span>, &amp;points[i].x, &amp;points[i].y);<br>        points[i].type = <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-built_in">sort</span>(points, points + <span class="hljs-number">2</span> * n);<br>    n = <span class="hljs-built_in">unique</span>(points, points + <span class="hljs-number">2</span> * n) - points;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%.3lf\n&quot;</span>, <span class="hljs-built_in">dfs</span>(<span class="hljs-number">0</span>, n));<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="防线">防线</h2>
+<h3 id="题目描述-4">题目描述</h3>
+<p>达达学习数学竞赛的时候受尽了同仁们的鄙视，终于有一天......受尽屈辱的达达黑化成为了黑暗英雄怪兽达达。</p>
+<p>就如同中二漫画的情节一样，怪兽达达打算毁掉这个世界。</p>
+<p>数学竞赛界的精英 lqr 打算阻止怪兽达达的阴谋，于是她集合了一支由数学竞赛选手组成的超级行动队。</p>
+<p>由于队员们个个都智商超群，很快，行动队便来到了怪兽达达的黑暗城堡的下方。</p>
+<p>但是，同样强大的怪兽达达在城堡周围布置了一条“不可越过”的坚固防线。</p>
+<p>防线由很多防具组成，这些防具分成了 <span class="math inline">\(N\)</span> 组。</p>
+<p>我们可以认为防线是一维的，那么每一组防具都分布在防线的某一段上，并且同一组防具是等距离排列的。</p>
+<p>也就是说，我们可以用三个整数 <span class="math inline">\(S\)</span>， <span class="math inline">\(E\)</span> 和 <span class="math inline">\(D\)</span> 来描述一组防具，即这一组防具布置在防线的 <span class="math inline">\(S，S+D，S+2D，…，S+KD(K∈Z，S+KD≤E，S+(K+1)D&gt;E)\)</span> 位置上。</p>
+<p>黑化的怪兽达达设计的防线极其精良。</p>
+<p>如果防线的某个位置有偶数个防具，那么这个位置就是毫无破绽的(包括这个位置一个防具也没有的情况，因为 <span class="math inline">\(0\)</span> 也是偶数)。</p>
+<p>只有有奇数个防具的位置有破绽，但是整条防线上也最多只有一个位置有奇数个防具。</p>
+<p>作为行动队的队长，lqr 要找到防线的破绽以策划下一步的行动。</p>
+<p>但是，由于防具的数量太多，她实在是不能看出哪里有破绽。</p>
+<p>作为 lqr 可以信任的学弟学妹们，你们要帮助她解决这个问题。</p>
+<p><strong>输入格式</strong></p>
+<p>输入文件的第一行是一个整数 <span class="math inline">\(T\)</span>，表示有 <span class="math inline">\(T\)</span> 组互相独立的测试数据。</p>
+<p>每组数据的第一行是一个整数 <span class="math inline">\(N\)</span>。</p>
+<p>之后 <span class="math inline">\(N\)</span> 行，每行三个整数 <span class="math inline">\(Si，Ei，Di\)</span>，代表第 <span class="math inline">\(i\)</span> 组防具的三个参数，数据用空格隔开。</p>
+<p><strong>输出格式</strong></p>
+<p>对于每组测试数据，如果防线没有破绽，即所有的位置都有偶数个防具，输出一行 <code>There's no weakness.</code>。</p>
+<p>否则在一行内输出两个空格分隔的整数 <span class="math inline">\(P\)</span> 和 <span class="math inline">\(C\)</span>，表示在位置 <span class="math inline">\(P\)</span> 有 <span class="math inline">\(C\)</span> 个防具。当然 <span class="math inline">\(C\)</span> 应该是一个奇数。</p>
+<p><strong>数据范围</strong></p>
+<p>防具总数不多于 <span class="math inline">\(10^8\)</span>,</p>
+<p><span class="math inline">\(Si≤Ei\)</span>, <span class="math inline">\(1≤T≤5\)</span>, <span class="math inline">\(N≤200000\)</span>, <span class="math inline">\(0≤Si，Ei，Di≤2^{31}−1\)</span></p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">3<br>2<br>1 10 1<br>2 10 1<br>2<br>1 10 1 <br>1 10 1 <br>4<br>1 10 1 <br>4 4 1 <br>1 5 1 <br>6 10 1<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">1 1<br>There&#x27;s no weakness.<br>4 3<br></code></pre></td></tr></table></figure>
+<h3 id="解析-4">解析</h3>
+<p>题目中保证了 <strong>"整条防线上最多只有一个位置有奇数个防具"</strong></p>
+<p>因此很容易想到前缀和的性质：</p>
+<ol type="1">
+<li>若前缀中有偶数个奇数，则前缀和为偶数；</li>
+<li>若前缀中有奇数个奇数，则前缀和为奇数；</li>
+</ol>
+<p>因此，若我们用前缀和来维护前缀里的防具的数量，那么显然答案具有单调性质</p>
+<p>即，由于数组中至多只有一个奇数，则必然前缀和在答案位置之前为偶数，之后为奇数</p>
+<p>在二分答案位置的时候，考虑如何统计前缀和，这是一个难题</p>
+<p>由于答案范围是 <span class="math inline">\([1, 2^{31}-1]\)</span>，且最坏情况下，每个位置都会有数字，因此不能直接统计，也不能离散化</p>
+<p>但是每个防具放置的位置是一个等差数列递推公式</p>
+<p>因此我们可以直接遍历所有的防具，利用等差数列公式，反向统计出当前防具在二分的 <span class="math inline">\(limit\)</span> 前缀中是第几项之后的数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">calc</span><span class="hljs-params">(<span class="hljs-keyword">int</span> limit)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>        <span class="hljs-keyword">if</span> (limit &gt;= s[i])<br>            res += (<span class="hljs-built_in">min</span>(limit, e[i]) - s[i]) / d[i] + <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ ) cin &gt;&gt; s[i] &gt;&gt; e[i] &gt;&gt; d[i];<br>    <span class="hljs-keyword">int</span> l = <span class="hljs-number">1</span>, r = (<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">31</span>) - <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (l &lt; r)<br>    &#123;<br>        <span class="hljs-keyword">int</span> mid = ((<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span>)l + r) &gt;&gt; <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">calc</span>(mid) &amp; <span class="hljs-number">1</span>) r = mid; <span class="hljs-keyword">else</span> l = mid + <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">calc</span>(l) &amp; <span class="hljs-number">1</span> ^ <span class="hljs-number">1</span>) <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;There&#x27;s no weakness.&quot;</span>);<br>    <span class="hljs-keyword">else</span> cout &lt;&lt; l &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; <span class="hljs-built_in">calc</span>(l) - <span class="hljs-built_in">calc</span>(l - <span class="hljs-number">1</span>) &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="赶牛入圈">赶牛入圈</h2>
+<h3 id="题目描述-5">题目描述</h3>
+<p>农夫约翰希望为他的奶牛们建立一个畜栏。</p>
+<p>这些挑剔的畜生要求畜栏必须是正方形的，而且至少要包含 <span class="math inline">\(C\)</span> 单位的三叶草，来当做它们的下午茶。</p>
+<p>畜栏的边缘必须与 <span class="math inline">\(X，Y\)</span> 轴平行。</p>
+<p>约翰的土地里一共包含 <span class="math inline">\(N\)</span> 单位的三叶草，每单位三叶草位于一个 <span class="math inline">\(1×1\)</span> 的土地区域内，区域位置由其左下角坐标表示，并且区域左下角的 <span class="math inline">\(X,Y\)</span> 坐标都为整数，范围在 <span class="math inline">\(1\)</span> 到 <span class="math inline">\(10000\)</span> 以内。</p>
+<p>多个单位的三叶草可能会位于同一个 <span class="math inline">\(1×1\)</span> 的区域内，因为这个原因，在接下来的输入中，同一个区域坐标可能出现多次。</p>
+<p>只有一个区域完全位于修好的畜栏之中，才认为这个区域内的三叶草在畜栏之中。</p>
+<p>请你帮约翰计算一下，能包含至少 <span class="math inline">\(C\)</span> 单位面积三叶草的情况下，畜栏的最小边长是多少。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行输入两个整数 <span class="math inline">\(C\)</span> 和 <span class="math inline">\(N\)</span>。</p>
+<p>接下来 <span class="math inline">\(N\)</span> 行，每行输入两个整数 <span class="math inline">\(X\)</span> 和 <span class="math inline">\(Y\)</span>，代表三叶草所在的区域的 <span class="math inline">\(X,Y\)</span> 坐标。</p>
+<p>同一行数据用空格隔开。</p>
+<p><strong>输出格式</strong></p>
+<p>输出一个整数，代表畜栏的最小边长。</p>
+<p><strong>数据范围</strong></p>
+<p><span class="math inline">\(1≤C≤500\)</span>, <span class="math inline">\(C≤N≤500\)</span></p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">3 4<br>1 2<br>2 1<br>4 1<br>5 2<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">4<br></code></pre></td></tr></table></figure>
+<h3 id="解析-5">解析</h3>
+<p>二维离散化 + 二维前缀和</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">valid</span><span class="hljs-params">(<span class="hljs-keyword">int</span> len)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> x1 = <span class="hljs-number">0</span>, x2 = <span class="hljs-number">1</span>; x2 &lt; xs.<span class="hljs-built_in">size</span>(); x2 ++ )<br>    &#123;<br>        <span class="hljs-keyword">while</span> (xs[x2] - xs[x1 + <span class="hljs-number">1</span>] + <span class="hljs-number">1</span> &gt; len) x1 ++ ;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> y1 = <span class="hljs-number">0</span>, y2 = <span class="hljs-number">1</span>; y2 &lt; xs.<span class="hljs-built_in">size</span>(); y2 ++ )<br>        &#123;<br>            <span class="hljs-keyword">while</span> (xs[y2] - xs[y1 + <span class="hljs-number">1</span>] + <span class="hljs-number">1</span> &gt; len) y1 ++ ;<br>            <span class="hljs-keyword">if</span> (s[x2][y2] - s[x1][y2] - s[x2][y1] + s[x1][y1] &gt;= m)<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">int</span> x, y;<br>        cin &gt;&gt; x &gt;&gt; y;<br>        xs.<span class="hljs-built_in">push_back</span>(x);<br>        xs.<span class="hljs-built_in">push_back</span>(y);<br>        temp[i] = &#123;x, y&#125;;<br>    &#125;<br>    <span class="hljs-built_in">discrete</span>();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">int</span> x = <span class="hljs-built_in">get</span>(temp[i].x), y = <span class="hljs-built_in">get</span>(temp[i].y);<br>        s[x][y] ++ ;<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; xs.<span class="hljs-built_in">size</span>(); i ++ )<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; xs.<span class="hljs-built_in">size</span>(); j ++ )<br>            s[i][j] += s[i - <span class="hljs-number">1</span>][j] + s[i][j - <span class="hljs-number">1</span>] - s[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];<br>    <br>    <span class="hljs-keyword">int</span> l = <span class="hljs-number">1</span>, r = <span class="hljs-number">10000</span>;<br>    <span class="hljs-keyword">while</span> (l &lt; r)<br>    &#123;<br>        <span class="hljs-keyword">int</span> mid = (l + r) &gt;&gt; <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">valid</span>(mid)) r = mid; <span class="hljs-keyword">else</span> l = mid + <span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="糖果传递">糖果传递</h2>
+<h3 id="题目描述-6">题目描述</h3>
+<p>有 <span class="math inline">\(n\)</span> 个小朋友坐成一圈，每人有 <span class="math inline">\(a[i]\)</span> 个糖果。</p>
+<p>每人只能给左右两人传递糖果。</p>
+<p>每人每次传递一个糖果代价为 <span class="math inline">\(1\)</span>。</p>
+<p>求使所有人获得均等糖果的最小代价。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行输入一个正整数 <span class="math inline">\(n\)</span>，表示小朋友的个数。</p>
+<p>接下来 <span class="math inline">\(n\)</span> 行，每行一个整数 <span class="math inline">\(a[i]\)</span>，表示第 <span class="math inline">\(i\)</span> 个小朋友初始得到的糖果的颗数。</p>
+<p><strong>输出格式</strong></p>
+<p>输出一个整数，表示最小代价。</p>
+<p><strong>数据范围</strong></p>
+<p><span class="math inline">\(1≤n≤1000000\)</span>, <span class="math inline">\(0≤a[i]≤2×109\)</span>,</p>
+<p>数据保证一定有解。</p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">4<br>1<br>2<br>5<br>4<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">4<br></code></pre></td></tr></table></figure>
+<h3 id="解析-6">解析</h3>
+<p>详情见 0x05排序 章节的 “环形均分纸牌” 问题</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-title">calc</span><span class="hljs-params">(<span class="hljs-keyword">int</span> c[], <span class="hljs-keyword">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> avg = t / n;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ ) a[i] = c[i] - avg;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ ) s[i] = s[i - <span class="hljs-number">1</span>] + a[i];<br>    <span class="hljs-built_in">sort</span>(s + <span class="hljs-number">1</span>, s + n + <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> res = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ ) res += <span class="hljs-built_in">abs</span>(s[i] - s[(n + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>]);<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="士兵">士兵</h2>
+<h3 id="题目描述-7">题目描述</h3>
+<p>格格兰郡的 <span class="math inline">\(N\)</span> 名士兵随机散落在全郡各地。</p>
+<p>格格兰郡中的位置由一对 <span class="math inline">\((x,y)\)</span> 整数坐标表示。</p>
+<p>士兵可以进行移动，每次移动，一名士兵可以向上，向下，向左或向右移动一个单位（因此，他的 <span class="math inline">\(x\)</span> 或 <span class="math inline">\(y\)</span> 坐标也将加 <span class="math inline">\(1\)</span> 或减 <span class="math inline">\(1\)</span>）。</p>
+<p>现在希望通过移动士兵，使得所有士兵彼此相邻的处于同一条水平线内，即所有士兵的 <span class="math inline">\(y\)</span> 坐标相同并且 <span class="math inline">\(x\)</span> 坐标相邻。</p>
+<p>请你计算满足要求的情况下，所有士兵的总移动次数最少是多少。</p>
+<p>需注意，两个或多个士兵不能占据同一个位置。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行输入整数 <span class="math inline">\(N\)</span>，代表士兵的数量。</p>
+<p>接下来的 <span class="math inline">\(N\)</span> 行，每行输入两个整数 <span class="math inline">\(x\)</span> 和 <span class="math inline">\(y\)</span>，分别代表一个士兵所在位置的 <span class="math inline">\(x\)</span> 坐标和 <span class="math inline">\(y\)</span> 坐标，第 <span class="math inline">\(i\)</span> 行即为第 <span class="math inline">\(i\)</span> 个士兵的坐标 <span class="math inline">\((x[i],y[i])\)</span>。</p>
+<p><strong>输出格式</strong></p>
+<p>输出一个整数，代表所有士兵的总移动次数的最小值。</p>
+<p><strong>数据范围</strong></p>
+<p><span class="math inline">\(1≤N≤10000\)</span>, <span class="math inline">\(−10000≤x[i],y[i]≤10000\)</span></p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">5<br>1 2<br>2 2<br>1 3<br>3 -2<br>3 3<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">8<br></code></pre></td></tr></table></figure>
+<h3 id="解析-7">解析</h3>
+<p>这题比较简单，简单讲一下我分析的过程，因为士兵每次只能向四相邻格子移动</p>
+<p>因此当前士兵抵达他在最优解中的位置所走的路程，就是当前坐标与最终坐标的曼哈顿距离</p>
+<p>因此我们可以先处理所有点的横坐标移动，使其都在一条轴线上，再处理纵坐标移动，使其相邻</p>
+<p>考虑第一步，是让所有点都移动到同一个坐标，反向思考，就是找一个点到所有点距离最短</p>
+<p>自然联想到 “货仓选址” 这题，直接找纵坐标中位数即可</p>
+<p>考虑第二步，是让所有点都移动到相邻位置，也是一个找中位数的过程，证明如下：</p>
+<p>先将点按 <span class="math inline">\(x_i\)</span> 递增排序，设第一个点 <span class="math inline">\(x_1\)</span> 移动到的最终位置为 <span class="math inline">\(k\)</span>，则可以列出如下式子：</p>
+<p><span class="math display">\[
+|x_1 - k| + |x_2 - k - 1| + |x_3 - k - 2| + \cdots + |x_n - k - n + 1|
+\]</span></p>
+<p>不妨设 <span class="math inline">\(y_i = x_i - i + 1\)</span>，则原式可化为：</p>
+<p><span class="math display">\[
+|y_1 - k| + |y_2 - k| + \cdots + |y_n - k|
+\]</span></p>
+<p>就变成 “货仓选址” 原题了，这一题是某一场 cf 的 t5，还是比较送分的一道题目</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">calc</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a[])</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>    <span class="hljs-built_in">sort</span>(a + <span class="hljs-number">1</span>, a + n + <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ ) res += <span class="hljs-built_in">abs</span>(a[i] - a[n + <span class="hljs-number">1</span> &gt;&gt; <span class="hljs-number">1</span>]);<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ ) cin &gt;&gt; x[i] &gt;&gt; y[i];<br>    <span class="hljs-built_in">sort</span>(x + <span class="hljs-number">1</span>, x + n + <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ ) x[i] = x[i] - i + <span class="hljs-number">1</span>;<br>    cout &lt;&lt; <span class="hljs-built_in">calc</span>(x) + <span class="hljs-built_in">calc</span>(y) &lt;&lt; endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="数的进制转换">数的进制转换</h2>
+<h3 id="题目描述-8">题目描述</h3>
+<p>编写一个程序，可以实现将一个数字由一个进制转换为另一个进制。</p>
+<p>这里有 <span class="math inline">\(62\)</span> 个不同数位 <span class="math inline">\({0−9,A−Z,a−z}\)</span>。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行输入一个整数，代表接下来的行数。</p>
+<p>接下来每一行都包含三个数字，首先是输入进制（十进制表示），然后是输出进制（十进制表示），最后是用输入进制表示的输入数字，数字之间用空格隔开。</p>
+<p>输入进制和输出进制都在 <span class="math inline">\(2\)</span> 到 <span class="math inline">\(62\)</span> 的范围之内。</p>
+<p>（在十进制下）<span class="math inline">\(A=10，B=11，…，Z=35，a=36，b=37，…，z=61\)</span> (<span class="math inline">\(0−9\)</span> 仍然表示 <span class="math inline">\(0−9\)</span>)。</p>
+<p><strong>输出格式</strong></p>
+<p>对于每一组进制转换，程序的输出都由三行构成。</p>
+<p>第一行包含两个数字，首先是输入进制（十进制表示），然后是用输入进制表示的输入数字。</p>
+<p>第二行包含两个数字，首先是输出进制（十进制表示），然后是用输出进制表示的输入数字。</p>
+<p>第三行为空白行。</p>
+<p>同一行内数字用空格隔开。</p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">8<br>62 2 abcdefghiz<br>10 16 1234567890123456789012345678901234567890<br>16 35 3A0C92075C0DBF3B8ACBC5F96CE3F0AD2<br>35 23 333YMHOUE8JPLT7OX6K9FYCQ8A<br>23 49 946B9AA02MI37E3D3MMJ4G7BL2F05<br>49 61 1VbDkSIMJL3JjRgAdlUfcaWj<br>61 5 dl9MDSWqwHjDnToKcsWE1S<br>5 10 42104444441001414401221302402201233340311104212022133030<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">62 abcdefghiz<br>2 11011100000100010111110010010110011111001001100011010010001<br><br>10 1234567890123456789012345678901234567890<br>16 3A0C92075C0DBF3B8ACBC5F96CE3F0AD2<br><br>16 3A0C92075C0DBF3B8ACBC5F96CE3F0AD2<br>35 333YMHOUE8JPLT7OX6K9FYCQ8A<br><br>35 333YMHOUE8JPLT7OX6K9FYCQ8A<br>23 946B9AA02MI37E3D3MMJ4G7BL2F05<br><br>23 946B9AA02MI37E3D3MMJ4G7BL2F05<br>49 1VbDkSIMJL3JjRgAdlUfcaWj<br><br>49 1VbDkSIMJL3JjRgAdlUfcaWj<br>61 dl9MDSWqwHjDnToKcsWE1S<br><br>61 dl9MDSWqwHjDnToKcsWE1S<br>5 42104444441001414401221302402201233340311104212022133030<br><br>5 42104444441001414401221302402201233340311104212022133030<br>10 1234567890123456789012345678901234567890<br></code></pre></td></tr></table></figure>
+<h3 id="解析-8">解析</h3>
+<p>进制转换，用短除法，然后倒叙输出余数</p>
+<p>需要上高精度，这题是清华某一年的机试原题</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">div</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt; &amp;a, <span class="hljs-keyword">int</span> b)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = a.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>; ~i; i -- )<br>    &#123;<br>        r = r * n + a[i];<br>        a[i] = r / b;<br>        r %= b;<br>    &#125;<br>    <span class="hljs-keyword">while</span> (a.<span class="hljs-built_in">size</span>() &amp;&amp; a.<span class="hljs-built_in">back</span>() == <span class="hljs-number">0</span>) a.<span class="hljs-built_in">pop_back</span>();<br>    <span class="hljs-keyword">return</span> r;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    string line, res;<br>    vector&lt;<span class="hljs-keyword">int</span>&gt; num;<br>    cin &gt;&gt; n &gt;&gt; m &gt;&gt; line;<br>    cout &lt;&lt; n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; line &lt;&lt; endl &lt;&lt; m &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = line.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>; ~i; i -- ) num.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">get</span>(line[i]));<br>    <br>    <span class="hljs-keyword">while</span> (num.<span class="hljs-built_in">size</span>()) res.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">put</span>(<span class="hljs-built_in">div</span>(num, m)));<br>    <br>    <span class="hljs-built_in">reverse</span>(res.<span class="hljs-built_in">begin</span>(), res.<span class="hljs-built_in">end</span>());<br>    cout &lt;&lt; res &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="耍杂技的牛">耍杂技的牛</h2>
+<h3 id="题目描述-9">题目描述</h3>
+<p>农民约翰的 <span class="math inline">\(N\)</span> 头奶牛（编号为 <span class="math inline">\(1..N\)</span>）计划逃跑并加入马戏团，为此它们决定练习表演杂技。</p>
+<p>奶牛们不是非常有创意，只提出了一个杂技表演：</p>
+<p>叠罗汉，表演时，奶牛们站在彼此的身上，形成一个高高的垂直堆叠。</p>
+<p>奶牛们正在试图找到自己在这个堆叠中应该所处的位置顺序。</p>
+<p>这 <span class="math inline">\(N\)</span> 头奶牛中的每一头都有着自己的重量 <span class="math inline">\(W_i\)</span> 以及自己的强壮程度 <span class="math inline">\(S_i\)</span>。</p>
+<p>一头牛支撑不住的可能性取决于它头上所有牛的总重量（不包括它自己）减去它的身体强壮程度的值，现在称该数值为风险值，风险值越大，这只牛撑不住的可能性越高。</p>
+<p>您的任务是确定奶牛的排序，使得所有奶牛的风险值中的最大值尽可能的小。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行输入整数 <span class="math inline">\(N\)</span>，表示奶牛数量。</p>
+<p>接下来 <span class="math inline">\(N\)</span> 行，每行输入两个整数，表示牛的重量和强壮程度，第 <span class="math inline">\(i\)</span> 行表示第 <span class="math inline">\(i\)</span> 头牛的重量 <span class="math inline">\(W_i\)</span> 以及它的强壮程度 <span class="math inline">\(S_i\)</span>。</p>
+<p><strong>输出格式</strong></p>
+<p>输出一个整数，表示最大风险值的最小可能值。</p>
+<p><strong>数据范围</strong></p>
+<p><span class="math inline">\(1≤N≤50000\)</span>, <span class="math inline">\(1≤W_i≤10,000\)</span>, <span class="math inline">\(1≤S_i≤1,000,000,000\)</span></p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">3<br>10 3<br>2 5<br>3 3<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">2<br></code></pre></td></tr></table></figure>
+<h3 id="解析-9">解析</h3>
+<p>次序影响答案，显然是一道贪心的排序题，我们试着用微扰法找出贪心策略</p>
+<p>原先相邻两项的风险值分别为：<span class="math inline">\(t_i = \sum\limits_{j=1}^{i-1} w_j - s_i\)</span> 和 <span class="math inline">\(t_{i+1} = \sum\limits_{j=1}^{i-1} w_j + w_i - s_{i+1}\)</span></p>
+<p>交换两项后，风险值分别为：<span class="math inline">\(t_i = \sum\limits_{j=1}^{i-1} w_j - s_{i+1}\)</span> 和 <span class="math inline">\(t_{i+1} = \sum\limits_{j=1}^{i-1} w_j + w_{i+1} - s_{i}\)</span></p>
+<p>对交换前后的最大风险值做差，可得：<span class="math inline">\(\max(s_{i+1}, w_i+s_{i}) - \max(s_{i}, w_{i+1}+s_{i+1})\)</span></p>
+<p>我们希望该式子可以小于等于 0，这样交换前效果更好，才符合我们的预期，因此开始分类讨论</p>
+<p>若 <span class="math inline">\(s_{i+1} &lt; w_i+s_{i}\)</span> 且 <span class="math inline">\(s_{i} &lt; w_{i+1}+s_{i+1}\)</span>，则原式为 <span class="math inline">\(s_i + w_i &lt; w_{i+1} + s_{i+1}\)</span> 不与条件矛盾</p>
+<p>若 <span class="math inline">\(s_{i+1} &lt; w_i+s_{i}\)</span> 且 <span class="math inline">\(s_{i} \ge w_{i+1}+s_{i+1}\)</span>，则原式为 <span class="math inline">\(w_i &lt; 0\)</span> 矛盾</p>
+<p>若 <span class="math inline">\(s_{i+1} \ge w_i+s_{i}\)</span> 且 <span class="math inline">\(s_{i} &lt; w_{i+1}+s_{i+1}\)</span>，则原式为 <span class="math inline">\(0 &lt; w_{i+1}\)</span> 不与条件矛盾</p>
+<p>若 <span class="math inline">\(s_{i+1} \ge w_i+s_{i}\)</span> 且 <span class="math inline">\(s_{i} \ge w_{i+1}+s_{i+1}\)</span>，则原式为 <span class="math inline">\(s_{i+1} &lt; s_i\)</span> 矛盾</p>
+<p>综上易得当条件 <span class="math inline">\(s_i + w_i \le w_{i+1} + s_{i+1}\)</span> 成立时，交换前效果更好</p>
+<p>这也就是我们的排序规则，每次减少一个逆序对，都会使答案变好，因此启发式策略成立</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Cow</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-keyword">int</span> w, s;<br>    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt; (<span class="hljs-keyword">const</span> Cow&amp; t) <span class="hljs-keyword">const</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> s + w &lt; t.w + t.s;<br>    &#125;<br>&#125;cows[N];<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ ) cin &gt;&gt; cows[i].w &gt;&gt; cows[i].s;<br>    <span class="hljs-built_in">sort</span>(cows + <span class="hljs-number">1</span>, cows + n + <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">int</span> prefix_w = <span class="hljs-number">0</span>, res = -INF;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>    &#123;<br>        res = <span class="hljs-built_in">max</span>(res, prefix_w - cows[i].s);<br>        prefix_w += cows[i].w;<br>    &#125;<br>    cout &lt;&lt; res &lt;&lt; endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="最大的和">最大的和</h2>
+<h3 id="题目描述-10">题目描述</h3>
+<p>给定一个包含整数的二维矩阵，子矩形是位于整个阵列内的任何大小为 <span class="math inline">\(1×1\)</span> 或更大的连续子阵列。</p>
+<p>矩形的总和是该矩形中所有元素的总和。</p>
+<p>在这个问题中，具有最大和的子矩形被称为最大子矩形。</p>
+<p>例如，下列数组：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">0 -2 -7 0 <br>9 2 -6 2 <br>-4 1 -4 1 <br>-1 8 0 -2 <br></code></pre></td></tr></table></figure>
+<p>其最大子矩形为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">9 2 <br>-4 1 <br>-1 8 <br></code></pre></td></tr></table></figure>
+<p>它拥有最大和 <span class="math inline">\(15\)</span>。</p>
+<p><strong>输入格式</strong></p>
+<p>输入中将包含一个 <span class="math inline">\(N×N\)</span> 的整数数组。</p>
+<p>第一行只输入一个整数 <span class="math inline">\(N\)</span>，表示方形二维数组的大小。</p>
+<p>从第二行开始，输入由空格和换行符隔开的 <span class="math inline">\(N^2\)</span> 个整数，它们即为二维数组中的 <span class="math inline">\(N^2\)</span> 个元素，输入顺序从二维数组的第一行开始向下逐行输入，同一行数据从左向右逐个输入。</p>
+<p>数组中的数字会保持在 <span class="math inline">\([−127,127]\)</span> 的范围内。</p>
+<p><strong>输出格式</strong></p>
+<p>输出一个整数，代表最大子矩形的总和。</p>
+<p><strong>数据范围</strong></p>
+<p><span class="math inline">\(1≤N≤100\)</span></p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">4<br>0 -2 -7 0<br>9 2 -6 2<br>-4 1 -4  1<br>-1 8  0 -2<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">15<br></code></pre></td></tr></table></figure>
+<h3 id="解析-10">解析</h3>
+<p>一维问题叫“最大连续区间和”，用的递推做的</p>
+<p>本题是上面这个问题的二维衍生问题，“最大子矩阵和”，做法是在一维递推基础上的拓展</p>
+<p>首先，朴素做法是直接枚举所有的子区间，时间复杂度为 <span class="math inline">\(O(n^4)\)</span></p>
+<p>为了实现递推，首先需要划分阶段，考虑该问题在一维情况下得到了递推，思考能否把二维压缩成一维</p>
+<p>我们考虑对每一列求一个前缀和，这样就可以在 <span class="math inline">\(O(1)\)</span> 的时间内求出区间 <span class="math inline">\([a_{i, y}, a_{j, y}]\)</span> 元素总和</p>
+<p>那么我们只需枚举二维，然后用 <span class="math inline">\(O(1)\)</span> 时间递推第三维即可，时间复杂度为 <span class="math inline">\(O(n^3)\)</span></p>
+<p>具体思路就是：每次枚举宽度 <span class="math inline">\([x1, x2]\)</span>，然后将这个二维子矩阵压缩成一维数组，其中 <span class="math inline">\(b_i = \sum\limits_{j=x_1}^{x_2}a_{j,i}\)</span></p>
+<p>递推：<span class="math inline">\(f_{x_1,x_2,j} = max(0, f_{x_1,x_2,j - 1}) + b_i\)</span></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> x1 = <span class="hljs-number">0</span>; x1 &lt;= n; x1 ++ )<br>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> x2 = x1 + <span class="hljs-number">1</span>; x2 &lt;= n; x2 ++ )<br>    &#123;<br>        <span class="hljs-keyword">int</span> val = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> y = <span class="hljs-number">1</span>; y &lt;= n; y ++ )<br>        &#123;<br>            val = <span class="hljs-built_in">max</span>(val, <span class="hljs-number">0</span>) + s[x2][y] - s[x1][y];<br>            res = <span class="hljs-built_in">max</span>(res, val);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="任务">任务</h2>
+<h3 id="题目描述-11">题目描述</h3>
+<p>今天某公司有 <span class="math inline">\(M\)</span> 个任务需要完成。</p>
+<p>每个任务都有相应的难度级别和完成任务所需时间。</p>
+<p>第 <span class="math inline">\(i\)</span> 个任务的难度级别为 <span class="math inline">\(y_i\)</span>，完成任务所需时间为 <span class="math inline">\(x_i\)</span> 分钟。</p>
+<p>如果公司完成此任务，他们将获得<span class="math inline">\(（500×x_i+2×y_i）\)</span>美元收入。</p>
+<p>该公司有 <span class="math inline">\(N\)</span> 台机器，每台机器都有最长工作时间和级别。</p>
+<p>如果任务所需时间超过机器的最长工作时间，则机器无法完成此任务。</p>
+<p>如果任务难度级别超过机器的级别，则机器无法完成次任务。</p>
+<p>每台机器一天内只能完成一项任务。</p>
+<p>每个任务只能由一台机器完成。</p>
+<p>请为他们设计一个任务分配方案，使得该公司能够最大化他们今天可以完成的任务数量。</p>
+<p>如果有多种解决方案，他们希望选取赚取利润最高的那种。</p>
+<p><strong>输入格式</strong></p>
+<p>输入包含几个测试用例。</p>
+<p>对于每个测试用例，第一行包含两个整数 <span class="math inline">\(N\)</span> 和 <span class="math inline">\(M\)</span>，分别代表机器数量和任务数量。</p>
+<p>接下来 <span class="math inline">\(N\)</span> 行，每行包含两个整数 <span class="math inline">\(x_i,y_i\)</span>，分别代表机器最长工作时间和机器级别。</p>
+<p>再接下来 <span class="math inline">\(M\)</span> 行，每行包含两个整数 <span class="math inline">\(x_i,y_i\)</span>，分别代表完成任务所需时间和任务难度级别。</p>
+<p><strong>输出格式</strong></p>
+<p>对于每个测试用例，输出两个整数，代表公司今天可以完成的最大任务数以及他们将获得的收入。</p>
+<p><strong>数据范围</strong></p>
+<p><span class="math inline">\(1≤N,M≤100000\)</span>, <span class="math inline">\(0&lt;x_i&lt;1440\)</span>, <span class="math inline">\(0≤y_i≤100\)</span></p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">1 2<br>100 3<br>100 2<br>100 1<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">1 50004<br></code></pre></td></tr></table></figure>
+<h3 id="解析-11">解析</h3>
+<p>观察到 <span class="math inline">\(x\)</span> 一个单位的影响大于最大差值下 <span class="math inline">\(y\)</span> 的影响： △x × 500 &gt; △y × 2，其中 <span class="math inline">\(\Delta x \in (1, 1440), \Delta y \in [0, 100]\)</span></p>
+<p>因此，我们可以把 <span class="math inline">\(x\)</span> 看做第一关键字，<span class="math inline">\(y\)</span> 看做第二关键字</p>
+<p>原题就相当于求一个二分图的最大匹配，且点权关键字值最大</p>
+<p>一般情况下，二分图的最大匹配，边权最大用 KM 算法，点权最大用 匈牙利 算法</p>
+<p>然而本题二分图基本上类似于是完全图，用匈牙利算法的时间复杂度为 <span class="math inline">\(O(nm)=O(n^3)\)</span></p>
+<p>因此我们要用贪心的思路，按双关键字排序从大到小枚举所有的任务，对于任务 <span class="math inline">\(i\)</span> 设双关键字要求为 <span class="math inline">\((x_i,y_i)\)</span></p>
+<p>我们找到所有第一关键字大于等于 <span class="math inline">\(x_i\)</span>，且第二关键字大于 <span class="math inline">\(y_i\)</span> 的机器中 <span class="math inline">\(y_i\)</span> 最小的与其匹配</p>
+<blockquote>
+<p>本题就是 <strong>“防晒”</strong> 这题的二维版本，证明上述启发式策略也与该题基本一致，用找增广路径的思路即可</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> res = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;<br><span class="hljs-built_in">sort</span>(mach + <span class="hljs-number">1</span>, mach + n + <span class="hljs-number">1</span>);<br><span class="hljs-built_in">sort</span>(task + <span class="hljs-number">1</span>, task + m + <span class="hljs-number">1</span>);<br>multiset&lt;<span class="hljs-keyword">int</span>&gt; level;<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = m, j = n; i; i -- )<br>&#123;<br>    <span class="hljs-keyword">while</span> (j &amp;&amp; mach[j].x &gt;= task[i].x) level.<span class="hljs-built_in">insert</span>(mach[j -- ].y);<br>    <span class="hljs-keyword">auto</span> it = level.<span class="hljs-built_in">lower_bound</span>(task[i].y);<br>    <span class="hljs-keyword">if</span> (it != level.<span class="hljs-built_in">end</span>())<br>    &#123;<br>        cnt ++ ;<br>        res += <span class="hljs-number">500</span> * task[i].x + <span class="hljs-number">2</span> * task[i].y;<br>        level.<span class="hljs-built_in">erase</span>(it);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Colopen 彩色铅笔</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.colopen-blog.com/Algorithm/lydguid/z0x08_%E6%80%BB%E7%BB%93%E4%B8%8E%E7%BB%83%E4%B9%A0/">http://www.colopen-blog.com/Algorithm/lydguid/z0x08_%E6%80%BB%E7%BB%93%E4%B8%8E%E7%BB%83%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.colopen-blog.com" target="_blank">Colopen's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E8%BF%9B%E9%98%B6%E6%8C%87%E5%8D%97/">算法竞赛进阶指南</a></div><div class="post_share"><div class="social-share" data-image="/img/top.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/Algorithm/lydguid/z0x11_%E6%A0%88/"><img class="prev-cover" src="/img/top.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">《算法竞赛进阶指南》0x11 栈</div></div></a></div><div class="next-post pull-right"><a href="/Algorithm/lydguid/z0x07_%E8%B4%AA%E5%BF%83/"><img class="next-cover" src="/img/top.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">《算法竞赛进阶指南》0x07 贪心</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/Algorithm/lydguid/z0x01_%E4%BD%8D%E8%BF%90%E7%AE%97/" title="《算法竞赛进阶指南》0x01 位运算"><img class="cover" src="/img/top.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-23</div><div class="title">《算法竞赛进阶指南》0x01 位运算</div></div></a></div><div><a href="/Algorithm/lydguid/z0x02_%E9%80%92%E6%8E%A8%E4%B8%8E%E9%80%92%E5%BD%92/" title="《算法竞赛进阶指南》0x02 递推与递归"><img class="cover" src="/img/top.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-24</div><div class="title">《算法竞赛进阶指南》0x02 递推与递归</div></div></a></div><div><a href="/Algorithm/lydguid/z0x04_%E4%BA%8C%E5%88%86/" title="《算法竞赛进阶指南》0x04 二分"><img class="cover" src="/img/top.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-26</div><div class="title">《算法竞赛进阶指南》0x04 二分</div></div></a></div><div><a href="/Algorithm/lydguid/z0x03_%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/" title="《算法竞赛进阶指南》0x03 前缀和与差分"><img class="cover" src="/img/top.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">《算法竞赛进阶指南》0x03 前缀和与差分</div></div></a></div><div><a href="/Algorithm/lydguid/z0x06_%E5%80%8D%E5%A2%9E/" title="《算法竞赛进阶指南》0x06 倍增"><img class="cover" src="/img/top.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-28</div><div class="title">《算法竞赛进阶指南》0x06 倍增</div></div></a></div><div><a href="/Algorithm/lydguid/z0x05_%E6%8E%92%E5%BA%8F/" title="《算法竞赛进阶指南》0x05 排序"><img class="cover" src="/img/top.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-27</div><div class="title">《算法竞赛进阶指南》0x05 排序</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Colopen 彩色铅笔</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zxclss"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zxclss" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaoxiucong@126.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">假期里努力坚持每日一更 =w=</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%A0%E8%8A%82%E6%80%BB%E7%BB%93"><span class="toc-text">章节总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98"><span class="toc-text">习题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A3%9E%E8%A1%8C%E5%91%98%E5%85%84%E5%BC%9F"><span class="toc-text">飞行员兄弟</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%A0%E5%8D%9Cdiy"><span class="toc-text">占卜DIY</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-1"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-1"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%BD%A2"><span class="toc-text">分形</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-2"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-2"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A2%AD%E5%87%BB"><span class="toc-text">袭击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-3"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-3"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E7%BA%BF"><span class="toc-text">防线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-4"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-4"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%B6%E7%89%9B%E5%85%A5%E5%9C%88"><span class="toc-text">赶牛入圈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-5"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-5"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%96%E6%9E%9C%E4%BC%A0%E9%80%92"><span class="toc-text">糖果传递</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-6"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-6"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A3%AB%E5%85%B5"><span class="toc-text">士兵</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-7"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-7"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%9A%84%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2"><span class="toc-text">数的进制转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-8"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-8"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%8D%E6%9D%82%E6%8A%80%E7%9A%84%E7%89%9B"><span class="toc-text">耍杂技的牛</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-9"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-9"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E7%9A%84%E5%92%8C"><span class="toc-text">最大的和</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-10"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-10"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1"><span class="toc-text">任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-11"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-11"><span class="toc-text">解析</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/Algorithm/lydguid/z0x17_%E4%BA%8C%E5%8F%89%E5%A0%86/" title="《算法竞赛进阶指南》0x17 二叉堆"><img src="/img/top.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《算法竞赛进阶指南》0x17 二叉堆"/></a><div class="content"><a class="title" href="/Algorithm/lydguid/z0x17_%E4%BA%8C%E5%8F%89%E5%A0%86/" title="《算法竞赛进阶指南》0x17 二叉堆">《算法竞赛进阶指南》0x17 二叉堆</a><time datetime="2022-02-07T16:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithm/lydguid/z0x16_Trie/" title="《算法竞赛进阶指南》0x16 Trie"><img src="/img/top.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《算法竞赛进阶指南》0x16 Trie"/></a><div class="content"><a class="title" href="/Algorithm/lydguid/z0x16_Trie/" title="《算法竞赛进阶指南》0x16 Trie">《算法竞赛进阶指南》0x16 Trie</a><time datetime="2022-02-06T16:00:00.000Z" title="发表于 2022-02-07 00:00:00">2022-02-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithm/lydguid/z0x15_%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="《算法竞赛进阶指南》0x15 字符串"><img src="/img/top.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《算法竞赛进阶指南》0x15 字符串"/></a><div class="content"><a class="title" href="/Algorithm/lydguid/z0x15_%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="《算法竞赛进阶指南》0x15 字符串">《算法竞赛进阶指南》0x15 字符串</a><time datetime="2022-02-05T16:00:00.000Z" title="发表于 2022-02-06 00:00:00">2022-02-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithm/lydguid/z0x14_Hash/" title="《算法竞赛进阶指南》0x14 Hash"><img src="/img/top.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《算法竞赛进阶指南》0x14 Hash"/></a><div class="content"><a class="title" href="/Algorithm/lydguid/z0x14_Hash/" title="《算法竞赛进阶指南》0x14 Hash">《算法竞赛进阶指南》0x14 Hash</a><time datetime="2022-02-04T16:00:00.000Z" title="发表于 2022-02-05 00:00:00">2022-02-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithm/lydguid/z0x13_%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%82%BB%E6%8E%A5%E8%A1%A8/" title="《算法竞赛进阶指南》0x13 链表与邻接表"><img src="/img/top.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《算法竞赛进阶指南》0x13 链表与邻接表"/></a><div class="content"><a class="title" href="/Algorithm/lydguid/z0x13_%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%82%BB%E6%8E%A5%E8%A1%A8/" title="《算法竞赛进阶指南》0x13 链表与邻接表">《算法竞赛进阶指南》0x13 链表与邻接表</a><time datetime="2022-02-03T16:00:00.000Z" title="发表于 2022-02-04 00:00:00">2022-02-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Colopen 彩色铅笔</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hello, welcome to my blog.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'gKOSQieW3w4mqQWaEbqkq3V6-9Nh9j0Va',
+      appKey: 'A3pLjLFHX6WdjQy1whxou4Ki',
+      placeholder: '留言前，请先留下你的昵称 (^w^)',
+      avatar: 'mp',
+      meta: 'nick,mail'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: 'https://gkosqiew.lc-cn-e1-shared.com',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: true
+    }, ))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script>(function(d, w, c) {
+    w.ChatraID = 'br28SJa9R5bPMHm5T';
+    var s = d.createElement('script');
+    w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+    };
+    s.async = true;
+    s.src = 'https://call.chatra.io/chatra.js';
+    if (d.head) d.head.appendChild(s);
+})(document, window, 'Chatra');
+
+if (true) {
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      Chatra('openChat')
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      Chatra('hide')
+    }
+    function chatBtnShow () {
+      Chatra('show')
+    }
+  }
+}</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

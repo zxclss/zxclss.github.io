@@ -1,0 +1,426 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>《算法竞赛进阶指南》0x14 Hash | Colopen's blog</title><meta name="keywords" content="算法竞赛进阶指南"><meta name="author" content="Colopen 彩色铅笔"><meta name="copyright" content="Colopen 彩色铅笔"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Hash表基本概念 Hash 表又称散列表，一般由Hash函数与链表结构共同实现 与离散化思想类似，当我们要对若干复杂信息进行统计时，可以用 Hash函数 把这些复杂信息映射到一个容易维护的值域内 因为值域变简单、范围变小，可能造成不同的原始信息被 Hash函数 映射为相同的值，处理该冲突的方法有：  “闭散列法”（开放寻址法）：闭散列方法把所有记录直接存储在散列表中，如果发生冲突则根据某种方式继">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《算法竞赛进阶指南》0x14 Hash">
+<meta property="og:url" content="http://www.colopen-blog.com/Algorithm/lydguid/z0x14_Hash/index.html">
+<meta property="og:site_name" content="Colopen&#39;s blog">
+<meta property="og:description" content="Hash表基本概念 Hash 表又称散列表，一般由Hash函数与链表结构共同实现 与离散化思想类似，当我们要对若干复杂信息进行统计时，可以用 Hash函数 把这些复杂信息映射到一个容易维护的值域内 因为值域变简单、范围变小，可能造成不同的原始信息被 Hash函数 映射为相同的值，处理该冲突的方法有：  “闭散列法”（开放寻址法）：闭散列方法把所有记录直接存储在散列表中，如果发生冲突则根据某种方式继">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.colopen-blog.com/img/top.jpg">
+<meta property="article:published_time" content="2022-02-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-06T06:33:42.736Z">
+<meta property="article:author" content="Colopen 彩色铅笔">
+<meta property="article:tag" content="算法竞赛进阶指南">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.colopen-blog.com/img/top.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.colopen-blog.com/Algorithm/lydguid/z0x14_Hash/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Colopen 彩色铅笔","link":"链接: ","source":"来源: Colopen's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '《算法竞赛进阶指南》0x14 Hash',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-06 14:33:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/dist/echarts.min.js"></script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/top.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Colopen's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《算法竞赛进阶指南》0x14 Hash</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-04T16:00:00.000Z" title="发表于 2022-02-05 00:00:00">2022-02-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-06T06:33:42.736Z" title="更新于 2022-02-06 14:33:42">2022-02-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E8%BF%9B%E9%98%B6%E6%8C%87%E5%8D%97/">算法竞赛进阶指南</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="《算法竞赛进阶指南》0x14 Hash"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="hash表基本概念">Hash表基本概念</h1>
+<p>Hash 表又称散列表，一般由Hash函数与链表结构共同实现</p>
+<p>与离散化思想类似，当我们要对若干复杂信息进行统计时，可以用 Hash函数 把这些复杂信息映射到一个容易维护的值域内</p>
+<p>因为值域变简单、范围变小，可能造成不同的原始信息被 Hash函数 映射为相同的值，处理该冲突的方法有：</p>
+<ol type="1">
+<li>“闭散列法”（开放寻址法）：闭散列方法把所有记录直接存储在散列表中，如果发生冲突则根据某种方式继续进行探查</li>
+<li><strong>“开散列法” （拉链法）</strong>：开散列法是在每个存放数据的地方开一个链表，如果有多个键值索引到同一个地方，只用把他们都放到那个位置的链表里就行了，查询的时候需要把对应位置的链表整个扫一遍，对其中的每个数据比较其键值与查询的键值是否一致</li>
+</ol>
+<p><strong>Hash表的两个基本操作</strong> ：</p>
+<ol type="1">
+<li>计算 Hash函数 的值</li>
+<li>定位到对应链表中依次遍历、比较</li>
+</ol>
+<p>其他所有操作都是基于上述两个操作的</p>
+<h1 id="字符串哈希">字符串哈希</h1>
+<p>Hash 的核心思想在于，将输入映射到一个值域较小、可以方便比较的范围</p>
+<blockquote>
+<p>这里的“值域较小”在不同情况下意义不同</p>
+<p>在 哈希表 中，值域需要小到能够接受线性的空间与时间复杂度</p>
+<p>在字符串哈希中，值域需要小到能够快速比较（<span class="math inline">\(10^9\)</span>、 <span class="math inline">\(10^{18}\)</span> 都是可以快速比较的）</p>
+<p>同时，为了降低哈希冲突率，值域也不能太小</p>
+</blockquote>
+<p>下面介绍的 字符串Hash函数 把一个任意长度的字符串映射成一个非负整数，并且其冲突概率几乎为零</p>
+<p><strong>取一固定值 <span class="math inline">\(P\)</span>，把字符串看做 <span class="math inline">\(P\)</span> 进制数，并分配一个大于 <span class="math inline">\(0\)</span> 的数值，代表每种字符</strong></p>
+<p>一般来说，分配的数值都远小于 <span class="math inline">\(P\)</span>，例如，对于小写字符构成的字符串，可以令 <span class="math inline">\(a=1,b=2,\cdots\)</span></p>
+<p><strong>取一固定值 <span class="math inline">\(M\)</span>，求出 <span class="math inline">\(P\)</span> 进制数对 <span class="math inline">\(M\)</span> 的余数，作为该字符串的 Hash值</strong></p>
+<blockquote>
+<p>【注】对于一个字符，其高低位和下标是反过来的</p>
+</blockquote>
+<p>对于字符串 <span class="math inline">\(S = \overline{s_{n}s_{n-1}\cdots s_2s_1}\)</span>，其哈希值为：</p>
+<p><span class="math display">\[
+H(S) = s_1 \times P^{n-1} + s_2 \times P^{n-2} + \cdots + s_{n-1} \times P + s_n
+\]</span></p>
+<p>一般来说，<strong><span class="math inline">\(P = 131\)</span> 或 <span class="math inline">\(P = 13331\)</span></strong>，此时 Hash 值产生冲突的概率极低</p>
+<p>只要 Hash值 相同，我们就可以认为原字符串是相等的</p>
+<p>通常<strong>取 <span class="math inline">\(M = 2^{64}\)</span></strong>，即直接<strong>使用 unsigned long long 类型</strong>存储这个 Hash值，让计算机自动取模</p>
+<p><strong>如何递推求解字符串的哈希值</strong></p>
+<p>基于如下的理论，对于一个字符串 <span class="math inline">\(S=\overline{s_{1} s_2 \cdots s_n}\)</span>，我们在后面添加一个字符 <span class="math inline">\(c\)</span>，则新哈希值为：</p>
+<p><span class="math display">\[
+H(\overline{Sc}) =  s_1 \times P^{n} + s_2 \times P^{n-1} + \cdots + s_n \times P + c
+\]</span></p>
+<p>固有递推式：<span class="math inline">\(H(\overline{Sc}) = (H(S) \times P + value(c)) \bmod M\)</span></p>
+<p>由如上递推式，我们可以从低位开始，对一个字符串进行遍历，并同时生成其任意前缀的哈希值</p>
+<p><strong>如何求解字符串任意子串的哈希值</strong></p>
+<p>基于上述递推，我们对整个字符串哈希完成后，同时获得了两个数组：<span class="math inline">\(H[N], P[N]\)</span></p>
+<p>因此我们可以在 <span class="math inline">\(O(1)\)</span> 的时间内，获得范围内任意 <strong>字符串的前缀哈希值</strong> 和 <strong><span class="math inline">\(P\)</span> 的 <span class="math inline">\(n\)</span> 次幂</strong></p>
+<p>对于已知哈希值的字符串 <span class="math inline">\(\overline{ST}\)</span>，求解其后缀子串 <span class="math inline">\(T\)</span> 的哈希值，将其分解成多项式有：</p>
+<p><span class="math display">\[
+\overline{ST} = s_1 \times P^{n + m - 1} + \cdots + s_{n-1} \times P^{m+1} + s_n \times P^{m} + t_1 \times P^{m-1} + \cdots  + t_{m-1} \times P + t_m
+\]</span></p>
+<p>简单推导易得公式：<span class="math inline">\(H(T) = (H(\overline{ST}) - H(S) \times P^m) \bmod M\)</span> ，其中 <span class="math inline">\(m\)</span> 为 <span class="math inline">\(T\)</span> 的长度</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> ULL;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> P = <span class="hljs-number">131</span>; <span class="hljs-comment">//131 or 13331</span><br>ULL f[N], p[N];<br><span class="hljs-function">ULL <span class="hljs-title">get_hash</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> f[r] - f[l - <span class="hljs-number">1</span>] * p[r - l + <span class="hljs-number">1</span>];<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">initialize_hash</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    p[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>    &#123;<br>        p[i] = p[i - <span class="hljs-number">1</span>] * P;<br>        f[i] = f[i - <span class="hljs-number">1</span>] * p + str[i];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="习题">习题</h1>
+<h2 id="雪花雪花雪花">雪花雪花雪花</h2>
+<h3 id="题目描述">题目描述</h3>
+<p>有 <span class="math inline">\(N\)</span> 片雪花，每片雪花由六个角组成，每个角都有长度。</p>
+<p>第 <span class="math inline">\(i\)</span> 片雪花六个角的长度从某个角开始顺时针依次记为 <span class="math inline">\(a_{i,1},a_{i,2},…,a_{i,6}\)</span>。</p>
+<p>因为雪花的形状是封闭的环形，所以从任何一个角开始顺时针或逆时针往后记录长度，得到的六元组都代表形状相同的雪花。</p>
+<p>例如 <span class="math inline">\(a_{i,1},a_{i,2},…,a_{i,6}\)</span> 和 <span class="math inline">\(a_{i,2},…,a_{i,6},a_{i,1}\)</span> 就是形状相同的雪花。</p>
+<p><span class="math inline">\(a_{i,1},a_{i,2},…,a_{i,6}\)</span> 和 <span class="math inline">\(a_{i,6},a_{i,5},…,a_{i,1}\)</span> 也是形状相同的雪花。</p>
+<p>我们称两片雪花形状相同，当且仅当它们各自从某一角开始顺时针或逆时针记录长度，能得到两个相同的六元组。</p>
+<p>求这 <span class="math inline">\(N\)</span> 片雪花中是否存在两片形状相同的雪花。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行输入一个整数 <span class="math inline">\(N\)</span>，代表雪花的数量。</p>
+<p>接下来 <span class="math inline">\(N\)</span> 行，每行描述一片雪花。</p>
+<p>每行包含 <span class="math inline">\(6\)</span> 个整数，分别代表雪花的六个角的长度（这六个数即为从雪花的随机一个角顺时针或逆时针记录长度得到）。</p>
+<p>同行数值之间，用空格隔开。</p>
+<p><strong>输出格式</strong></p>
+<p>如果不存在两片形状相同的雪花，则输出：<code>No two snowflakes are alike.</code></p>
+<p>如果存在两片形状相同的雪花，则输出：<code>Twin snowflakes found.</code></p>
+<p><strong>数据范围</strong></p>
+<p><span class="math inline">\(1≤N≤100000, 0≤ai,j&lt;10000000\)</span></p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">2<br>1 2 3 4 5 6<br>4 3 2 1 6 5<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">Twin snowflakes found.<br></code></pre></td></tr></table></figure>
+<h3 id="解析">解析</h3>
+<p>本题的问题是如何将同类集合的雪花存下来，映射到一个更小的范围内，便于查询</p>
+<p>蓝书上用了累加累乘值之和作为一个字符串的哈希值，y总用了字符串的最小表示法进行的哈希</p>
+<p>蓝书解法直接看书，y总解法见下一章节的字符串最小表示法</p>
+<p>本题代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>&#123;<br>    <span class="hljs-function">vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">snow</span><span class="hljs-params">(<span class="hljs-number">6</span>)</span>, <span class="hljs-title">isnow</span><span class="hljs-params">(<span class="hljs-number">6</span>)</span></span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">6</span>; j ++ ) <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;snow[j]), isnow[<span class="hljs-number">5</span> - j] = snow[j];<br>    <span class="hljs-built_in">get_min</span>(snow);<br>    <span class="hljs-built_in">get_min</span>(isnow);<br>    snows[i] = <span class="hljs-built_in">min</span>(snow, isnow);<br>&#125;<br><span class="hljs-built_in">sort</span>(snows + <span class="hljs-number">1</span>, snows + n + <span class="hljs-number">1</span>);<br><br><span class="hljs-keyword">bool</span> flag = <span class="hljs-literal">false</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i ++ )<br>    <span class="hljs-keyword">if</span> (snows[i] == snows[i + <span class="hljs-number">1</span>])<br>        flag = <span class="hljs-literal">true</span>;<br><span class="hljs-built_in">puts</span>(flag ? <span class="hljs-string">&quot;Twin snowflakes found.&quot;</span> : <span class="hljs-string">&quot;No two snowflakes are alike.&quot;</span>);<br></code></pre></td></tr></table></figure>
+<h2 id="兔子与兔子">兔子与兔子</h2>
+<h3 id="题目描述-1">题目描述</h3>
+<p>很久很久以前，森林里住着一群兔子。</p>
+<p>有一天，兔子们想要研究自己的 DNA 序列。</p>
+<p>我们首先选取一个好长好长的 DNA 序列（小兔子是外星生物，DNA 序列可能包含 <span class="math inline">\(26\)</span> 个小写英文字母）。</p>
+<p>然后我们每次选择两个区间，询问如果用两个区间里的 DNA 序列分别生产出来两只兔子，这两个兔子是否一模一样。</p>
+<p>注意两个兔子一模一样只可能是他们的 DNA 序列一模一样。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行输入一个 DNA 字符串 <span class="math inline">\(S\)</span>。</p>
+<p>第二行一个数字 <span class="math inline">\(m\)</span>，表示 <span class="math inline">\(m\)</span> 次询问。</p>
+<p>接下来 <span class="math inline">\(m\)</span> 行，每行四个数字 <span class="math inline">\(l_1,r_1,l_2,r_2\)</span>，分别表示此次询问的两个区间，注意字符串的位置从 <span class="math inline">\(1\)</span> 开始编号。</p>
+<p><strong>输出格式</strong></p>
+<p>对于每次询问，输出一行表示结果。</p>
+<p>如果两只兔子完全相同输出 Yes，否则输出 No（注意大小写）。</p>
+<p><strong>数据范围</strong></p>
+<p><span class="math inline">\(1≤length(S),m≤1000000\)</span></p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">aabbaabb<br>3<br>1 3 5 7<br>1 3 6 8<br>1 2 1 2<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">Yes<br>No<br>Yes<br></code></pre></td></tr></table></figure>
+<h3 id="解析-1">解析</h3>
+<p>字符串哈希的板子题</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%s&quot;</span>, str + <span class="hljs-number">1</span>);<br>n = <span class="hljs-built_in">strlen</span>(str + <span class="hljs-number">1</span>);<br><span class="hljs-built_in">initialize</span>();<br><span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;m);<br><span class="hljs-keyword">while</span> (m -- )<br>&#123;<br>    <span class="hljs-keyword">int</span> l1, r1, l2, r2;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d%d%d%d&quot;</span>, &amp;l1, &amp;r1, &amp;l2, &amp;r2);<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-built_in">get_hash</span>(l1, r1) == <span class="hljs-built_in">get_hash</span>(l2, r2) ? <span class="hljs-string">&quot;Yes&quot;</span> : <span class="hljs-string">&quot;No&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="回文子串的最大长度">回文子串的最大长度</h2>
+<h3 id="题目描述-2">题目描述</h3>
+<p>如果一个字符串正着读和倒着读是一样的，则称它是回文的。</p>
+<p>给定一个长度为 <span class="math inline">\(N\)</span> 的字符串 <span class="math inline">\(S\)</span>，求他的最长回文子串的长度是多少。</p>
+<p><strong>输入格式</strong></p>
+<p>输入将包含最多 <span class="math inline">\(30\)</span> 个测试用例，每个测试用例占一行，以最多 <span class="math inline">\(10^6\)</span> 个小写字符的形式给出。</p>
+<p>输入以一个以字符串 <code>END</code> 开头的行表示输入终止。</p>
+<p><strong>输出格式</strong></p>
+<p>对于输入中的每个测试用例，输出测试用例编号和最大回文子串的长度（参考样例格式）。</p>
+<p>每个输出占一行。</p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">abcbabcbabcba<br>abacacbaaaab<br>END<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">Case 1: 13<br>Case 2: 6<br></code></pre></td></tr></table></figure>
+<h3 id="解析-2">解析</h3>
+<p>最长回文子串，是学 “马拉车” 的板子题，可以在线性的时间内完成求解</p>
+<p>本篇讲用字符串哈希来进行求解，时间复杂度次于马拉车，为 <span class="math inline">\(O(n\log n)\)</span></p>
+<p>根据回文子串的定义，不难想到暴力做法，先枚举子串中点，然后向两侧延伸找到相等的最长长度</p>
+<p>枚举好终点后，不难发现答案长度具有单调性，即大于最长长度必然前后缀不相等，小于等于则相等</p>
+<p>因此我们可以结合该单调性，二分出最长长度，二分的过程中判断前后是否构成回文，可以用字符串哈希</p>
+<p>即可在 <span class="math inline">\(O(1)\)</span> 的时间内，实现二分结果的判定</p>
+<p>这题还要注意边界，回文子串可能是奇数串也可能是偶数串（没中点）</p>
+<p>因此在预处理时，我们可以把每两个字母之间放入一个 <code>#</code> 号隔开，这样所有情况都可以处理成奇数情况</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">initialize</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    p[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>    f[<span class="hljs-number">0</span>] = g[n + <span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>, j = n; i &lt;= n; i ++ , j -- )<br>    &#123;<br>        p[i] = p[i - <span class="hljs-number">1</span>] * P;<br>        f[i] = f[i - <span class="hljs-number">1</span>] * P + s[i];<br>        g[i] = g[i - <span class="hljs-number">1</span>] * P + s[j];<br>    &#125;<br>&#125;<br><span class="hljs-function">ULL <span class="hljs-title">get_hash</span><span class="hljs-params">(ULL h[], <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> h[r] - h[l - <span class="hljs-number">1</span>] * p[r - l + <span class="hljs-number">1</span>];<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    n = <span class="hljs-built_in">strlen</span>(s + <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = n &lt;&lt; <span class="hljs-number">1</span>; i; i -= <span class="hljs-number">2</span>)<br>    &#123;<br>        s[i] = s[i / <span class="hljs-number">2</span>];<br>        s[i - <span class="hljs-number">1</span>] = <span class="hljs-string">&#x27;#&#x27;</span>;<br>    &#125;<br>    n &lt;&lt;= <span class="hljs-number">1</span>;<br>    <span class="hljs-built_in">initialize</span>();<br><br>    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>, r = <span class="hljs-built_in">min</span>(i - <span class="hljs-number">1</span>, n - i);<br>        <span class="hljs-keyword">while</span> (l &lt; r)   <span class="hljs-comment">//[i - mid, i] [i, i + mid] -&gt; [n+1-(i+mid), n+1-i]</span><br>        &#123;<br>            <span class="hljs-keyword">int</span> mid = (l + r + <span class="hljs-number">1</span>) &gt;&gt; <span class="hljs-number">1</span>;<br>            ULL lval = <span class="hljs-built_in">get_hash</span>(f, i - mid, i);<br>            ULL rval = <span class="hljs-built_in">get_hash</span>(g, n + <span class="hljs-number">1</span> - (i + mid), n + <span class="hljs-number">1</span> - i);<br>            <span class="hljs-keyword">if</span> (lval == rval) l = mid; <span class="hljs-keyword">else</span> r = mid - <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (s[i - l] != <span class="hljs-string">&#x27;#&#x27;</span>) l ++ ;<br>        res = <span class="hljs-built_in">max</span>(res, l);<br>    &#125;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, res);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="后缀数组">后缀数组</h2>
+<h3 id="题目描述-3">题目描述</h3>
+<p>后缀数组 (SA) 是一种重要的数据结构，通常使用倍增或者 DC3 算法实现，这超出了我们的讨论范围。</p>
+<p>在本题中，我们希望使用快排、Hash 与二分实现一个简单的 <span class="math inline">\(O(nlog^2n)\)</span> 的后缀数组求法。</p>
+<p>详细地说，给定一个长度为 <span class="math inline">\(n\)</span> 的字符串 <span class="math inline">\(S\)</span>（下标 <span class="math inline">\(0∼n−1\)</span>），我们可以用整数 <span class="math inline">\(k(0≤k&lt;n)\)</span> 表示字符串 <span class="math inline">\(S\)</span> 的后缀 <span class="math inline">\(S(k∼n−1)\)</span>。</p>
+<p>把字符串 <span class="math inline">\(S\)</span> 的所有后缀按照字典序排列，排名为 <span class="math inline">\(i\)</span> 的后缀记为 <span class="math inline">\(SA[i]\)</span>。</p>
+<p>额外地，我们考虑排名为 <span class="math inline">\(i\)</span> 的后缀与排名为 <span class="math inline">\(i−1\)</span> 的后缀，把二者的最长公共前缀的长度记为 <span class="math inline">\(Height[i]\)</span>。</p>
+<p>我们的任务就是求出 <span class="math inline">\(SA\)</span> 与 <span class="math inline">\(Height\)</span> 这两个数组。</p>
+<p><strong>输入格式</strong></p>
+<p>输入一个字符串，其长度不超过 <span class="math inline">\(3\times 10^5\)</span>。</p>
+<p>字符串由小写字母构成。</p>
+<p><strong>输出格式</strong></p>
+<p>第一行为数组 <span class="math inline">\(SA\)</span>，相邻两个整数用 <span class="math inline">\(1\)</span> 个空格隔开。</p>
+<p>第二行为数组 <span class="math inline">\(Height\)</span>，相邻两个整数用 <span class="math inline">\(1\)</span> 个空格隔开，我们规定 <span class="math inline">\(Height[1]=0\)</span>。</p>
+<p><strong>输入样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">ponoiiipoi<br></code></pre></td></tr></table></figure>
+<p><strong>输出样例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">9 4 5 6 2 8 3 1 7 0<br>0 1 2 1 0 0 2 1 0 2<br></code></pre></td></tr></table></figure>
+<h3 id="解析-3">解析</h3>
+<p>暴力快排的时间复杂度为 <span class="math inline">\(O(n^2 \log n)\)</span> 因为字符串每一次比较的时间复杂度为 <span class="math inline">\(O(len(s))\)</span></p>
+<p>基于比较的排序算法时间复杂度下界为 <span class="math inline">\(O(n\log n)\)</span> 因此能优化的只有字符串的比较方式</p>
+<p>基于上一题最长回文子串解法的启发，我们可以在进行字符串比较时用哈希 + 二分的手段优化到 <span class="math inline">\(O(\log len(s))\)</span></p>
+<p>通过字符串哈希和二分迅速找到最长相等前缀，然后比较最后一个不相等的字符，决定两个子串的大小</p>
+<p>总时间复杂度为 <span class="math inline">\(O(n\log^2 n)\)</span></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get_max_common_prefix</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> <span class="hljs-comment">//二分两个子数组最长前缀</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>, r = <span class="hljs-built_in">min</span>(n + <span class="hljs-number">1</span> - a, n + <span class="hljs-number">1</span> - b);<br>    <span class="hljs-keyword">while</span> (l &lt; r)<br>    &#123;<br>        <span class="hljs-keyword">int</span> mid = (l + r + <span class="hljs-number">1</span>) &gt;&gt; <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">get_hash</span>(a, a + mid - <span class="hljs-number">1</span>) == <span class="hljs-built_in">get_hash</span>(b, b + mid - <span class="hljs-number">1</span>)) l = mid;<br>        <span class="hljs-keyword">else</span> r = mid - <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> r;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">cmp</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span>  <span class="hljs-comment">//比较后缀字符串 str[a...n] 和 str[b...n] 的大小</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> len = <span class="hljs-built_in">get_max_common_prefix</span>(a, b);<br>    <span class="hljs-keyword">int</span> a_val = a + len &gt; n ? <span class="hljs-number">0</span> : str[a + len];<br>    <span class="hljs-keyword">int</span> b_val = b + len &gt; n ? <span class="hljs-number">0</span> : str[b + len];<br>    <span class="hljs-keyword">return</span> a_val &lt; b_val;<br>&#125;<br></code></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Colopen 彩色铅笔</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.colopen-blog.com/Algorithm/lydguid/z0x14_Hash/">http://www.colopen-blog.com/Algorithm/lydguid/z0x14_Hash/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.colopen-blog.com" target="_blank">Colopen's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E8%BF%9B%E9%98%B6%E6%8C%87%E5%8D%97/">算法竞赛进阶指南</a></div><div class="post_share"><div class="social-share" data-image="/img/top.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/Algorithm/lydguid/z0x15_%E5%AD%97%E7%AC%A6%E4%B8%B2/"><img class="prev-cover" src="/img/top.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">《算法竞赛进阶指南》0x15 字符串</div></div></a></div><div class="next-post pull-right"><a href="/Algorithm/lydguid/z0x13_%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%82%BB%E6%8E%A5%E8%A1%A8/"><img class="next-cover" src="/img/top.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">《算法竞赛进阶指南》0x13 链表与邻接表</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/Algorithm/lydguid/z0x01_%E4%BD%8D%E8%BF%90%E7%AE%97/" title="《算法竞赛进阶指南》0x01 位运算"><img class="cover" src="/img/top.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-23</div><div class="title">《算法竞赛进阶指南》0x01 位运算</div></div></a></div><div><a href="/Algorithm/lydguid/z0x02_%E9%80%92%E6%8E%A8%E4%B8%8E%E9%80%92%E5%BD%92/" title="《算法竞赛进阶指南》0x02 递推与递归"><img class="cover" src="/img/top.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-24</div><div class="title">《算法竞赛进阶指南》0x02 递推与递归</div></div></a></div><div><a href="/Algorithm/lydguid/z0x04_%E4%BA%8C%E5%88%86/" title="《算法竞赛进阶指南》0x04 二分"><img class="cover" src="/img/top.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-26</div><div class="title">《算法竞赛进阶指南》0x04 二分</div></div></a></div><div><a href="/Algorithm/lydguid/z0x03_%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/" title="《算法竞赛进阶指南》0x03 前缀和与差分"><img class="cover" src="/img/top.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">《算法竞赛进阶指南》0x03 前缀和与差分</div></div></a></div><div><a href="/Algorithm/lydguid/z0x06_%E5%80%8D%E5%A2%9E/" title="《算法竞赛进阶指南》0x06 倍增"><img class="cover" src="/img/top.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-28</div><div class="title">《算法竞赛进阶指南》0x06 倍增</div></div></a></div><div><a href="/Algorithm/lydguid/z0x05_%E6%8E%92%E5%BA%8F/" title="《算法竞赛进阶指南》0x05 排序"><img class="cover" src="/img/top.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-27</div><div class="title">《算法竞赛进阶指南》0x05 排序</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Colopen 彩色铅笔</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zxclss"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zxclss" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaoxiucong@126.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">假期里努力坚持每日一更 =w=</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hash%E8%A1%A8%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">Hash表基本概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C"><span class="toc-text">字符串哈希</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98"><span class="toc-text">习题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%AA%E8%8A%B1%E9%9B%AA%E8%8A%B1%E9%9B%AA%E8%8A%B1"><span class="toc-text">雪花雪花雪花</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%94%E5%AD%90%E4%B8%8E%E5%85%94%E5%AD%90"><span class="toc-text">兔子与兔子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-1"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-1"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2%E7%9A%84%E6%9C%80%E5%A4%A7%E9%95%BF%E5%BA%A6"><span class="toc-text">回文子串的最大长度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-2"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-2"><span class="toc-text">解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84"><span class="toc-text">后缀数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-3"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-3"><span class="toc-text">解析</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/Algorithm/lydguid/z0x17_%E4%BA%8C%E5%8F%89%E5%A0%86/" title="《算法竞赛进阶指南》0x17 二叉堆"><img src="/img/top.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《算法竞赛进阶指南》0x17 二叉堆"/></a><div class="content"><a class="title" href="/Algorithm/lydguid/z0x17_%E4%BA%8C%E5%8F%89%E5%A0%86/" title="《算法竞赛进阶指南》0x17 二叉堆">《算法竞赛进阶指南》0x17 二叉堆</a><time datetime="2022-02-07T16:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithm/lydguid/z0x16_Trie/" title="《算法竞赛进阶指南》0x16 Trie"><img src="/img/top.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《算法竞赛进阶指南》0x16 Trie"/></a><div class="content"><a class="title" href="/Algorithm/lydguid/z0x16_Trie/" title="《算法竞赛进阶指南》0x16 Trie">《算法竞赛进阶指南》0x16 Trie</a><time datetime="2022-02-06T16:00:00.000Z" title="发表于 2022-02-07 00:00:00">2022-02-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithm/lydguid/z0x15_%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="《算法竞赛进阶指南》0x15 字符串"><img src="/img/top.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《算法竞赛进阶指南》0x15 字符串"/></a><div class="content"><a class="title" href="/Algorithm/lydguid/z0x15_%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="《算法竞赛进阶指南》0x15 字符串">《算法竞赛进阶指南》0x15 字符串</a><time datetime="2022-02-05T16:00:00.000Z" title="发表于 2022-02-06 00:00:00">2022-02-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithm/lydguid/z0x14_Hash/" title="《算法竞赛进阶指南》0x14 Hash"><img src="/img/top.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《算法竞赛进阶指南》0x14 Hash"/></a><div class="content"><a class="title" href="/Algorithm/lydguid/z0x14_Hash/" title="《算法竞赛进阶指南》0x14 Hash">《算法竞赛进阶指南》0x14 Hash</a><time datetime="2022-02-04T16:00:00.000Z" title="发表于 2022-02-05 00:00:00">2022-02-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithm/lydguid/z0x13_%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%82%BB%E6%8E%A5%E8%A1%A8/" title="《算法竞赛进阶指南》0x13 链表与邻接表"><img src="/img/top.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《算法竞赛进阶指南》0x13 链表与邻接表"/></a><div class="content"><a class="title" href="/Algorithm/lydguid/z0x13_%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%82%BB%E6%8E%A5%E8%A1%A8/" title="《算法竞赛进阶指南》0x13 链表与邻接表">《算法竞赛进阶指南》0x13 链表与邻接表</a><time datetime="2022-02-03T16:00:00.000Z" title="发表于 2022-02-04 00:00:00">2022-02-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Colopen 彩色铅笔</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hello, welcome to my blog.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'gKOSQieW3w4mqQWaEbqkq3V6-9Nh9j0Va',
+      appKey: 'A3pLjLFHX6WdjQy1whxou4Ki',
+      placeholder: '留言前，请先留下你的昵称 (^w^)',
+      avatar: 'mp',
+      meta: 'nick,mail'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: 'https://gkosqiew.lc-cn-e1-shared.com',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: true
+    }, ))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script>(function(d, w, c) {
+    w.ChatraID = 'br28SJa9R5bPMHm5T';
+    var s = d.createElement('script');
+    w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+    };
+    s.async = true;
+    s.src = 'https://call.chatra.io/chatra.js';
+    if (d.head) d.head.appendChild(s);
+})(document, window, 'Chatra');
+
+if (true) {
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      Chatra('openChat')
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      Chatra('hide')
+    }
+    function chatBtnShow () {
+      Chatra('show')
+    }
+  }
+}</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
