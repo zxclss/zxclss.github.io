@@ -17,16 +17,19 @@ a#site-name {
 @import url(https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css);
 
 h1#site-title {
-  font-size: 10vh!important;
+  font-size: 8vh!important;
+  color: #4ad5ff!important;
   text-shadow:5px 2px 6px #000!important;
   font-family:Fira Code!important
 }
 span#subtitle {
   font-size: 3vh!important;
+  color: #4ad5ff!important;
   text-shadow:5px 2px 6px #000!important;
   font-family:Fira Code!important
 }
 a#site-name {
+  color: #4ad5ff!important;
   text-shadow:5px 2px 6px #000!important;
   font-family:Fira Code!important
 }
@@ -85,13 +88,13 @@ a#site-name {
 */
 
 :root {
-    --hl-color: #24292e;
-    --hl-bg: rgb(246 248 250);
-    --hltools-bg: #49b1f5;
-    --hltools-color: #ffffff;
-    --hlnumber-bg: rgb(235 239 241);
-    --hlnumber-color: #221a0f7a;
-  }
+  --hl-color: #24292e;
+  --hl-bg: rgb(246 248 250);
+  --hltools-bg: #49b1f587;
+  --hltools-color: #ffffff;
+  --hlnumber-bg: rgb(235 239 241);
+  --hlnumber-color: #221a0f52;
+}
     
   
   .hljs {
