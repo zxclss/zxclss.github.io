@@ -6264,3 +6264,65 @@ blockquote.pullquote.right {
     max-height: 75vh !important;
   }
 }
+#veditor {
+  background-image: url("https://cdn.acwing.com/media/article/image/2022/01/24/94631_ae6a50c07d-aa.gif");
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-color: rgba(255,255,255,0);
+  resize: vertical;
+}
+#veditor:focus {
+  background-position-y: 200px;
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  -moz-transition: all 0.2s ease-in-out 0s;
+  -o-transition: all 0.2s ease-in-out 0s;
+  -ms-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}
+#vcomment .vheader .vnick {
+  width: 30%;
+  border: 2px solid #dedede;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+}
+#vcomment .vheader .vmail {
+  width: 30%;
+  border: 2px solid #dedede;
+  margin-left: 34px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+}
+#vcomment .vheader .vlink {
+  width: 30%;
+  border: 2px solid #dedede;
+  margin-left: 34px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+}
+#vcomment .vcards .vcard {
+  padding: 15px 20px 0 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  -webkit-box-shadow: 0 0 4px 1px rgba(0,0,0,0.12);
+  box-shadow: 0 0 4px 1px rgba(0,0,0,0.12);
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  transition: all 0.3s;
+}
+#vcomment .vcards .vcard:hover {
+  -webkit-box-shadow: 0 0 8px 3px rgba(0,0,0,0.12);
+  box-shadow: 0 0 8px 3px rgba(0,0,0,0.12);
+}
+#vcomment .vcards .vcard .vh .vcard {
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
