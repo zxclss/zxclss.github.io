@@ -230,7 +230,7 @@ window.addEventListener('load',preloader.endLoading())</script><div class="js-pj
       appId: 'gKOSQieW3w4mqQWaEbqkq3V6-9Nh9j0Va',
       appKey: 'A3pLjLFHX6WdjQy1whxou4Ki',
       avatar: 'mp',
-      placeholder: '想说些什么呢......',
+      placeholder: '昵称处填入QQ号会直接抓取你的QQ头像作为评论头像，否则按照邮箱同步Gravatar上的头像（纯匿名评论会定时删除清理）',
       meta: 'nick,mail,link'.split(','),
       pageSize: '10',
       lang: 'zh-CN',
@@ -251,7 +251,7 @@ window.addEventListener('load',preloader.endLoading())</script><div class="js-pj
   }
 
   if (typeof Valine === 'function') initValine() 
-  else getScript('https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js').then(initValine)
+  else getScript('https://unpkg.com/valine/dist/Valine.min.js').then(initValine)
 }
 
 if ('Valine' === 'Valine' || !true) {
